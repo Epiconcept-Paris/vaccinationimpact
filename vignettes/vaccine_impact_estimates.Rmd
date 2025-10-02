@@ -35,8 +35,8 @@ $$NAE_t = e_{A(t)} \frac{VC_t VE_t}{(1 - VC_t VE_t)}$$
 with:
 
 - $e_{A(t)}$: Number of events at time $t$
-- $VC_t$: Vaccine coverage at time $t$
 - $VE_t$: Vaccine effectiveness at time $t$
+- $VC_t$: Vaccine coverage at time $t$
 
 ## 2. Number of avertable events considering an increase in final coverage (NAbE)
 
@@ -59,7 +59,7 @@ with:
 - $VC_t$: Vaccine coverage at time $t$ ($VC_0 = 0$)
 - $VC_{t-1}$: Vaccine coverage at time $t-1$
 - $\alpha$: Increase in final vaccine coverage
-- $VC_T$: Maximum vaccine coverage
+- $VC_T$: Maximum vaccine coverage observed
 
 ## 3. Number Needed to Vaccinate (NNV)
 
