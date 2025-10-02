@@ -2,5 +2,5 @@ pandoc: 3.1.11
 pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
-  vaccine_impact_estimates: vaccine_impact_estimates.html
-last_built: 2025-10-02T12:19Z
+  vaccination_impact_estimates: vaccination_impact_estimates.html
+last_built: 2025-10-02T12:47Z
