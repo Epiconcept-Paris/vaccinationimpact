@@ -1,0 +1,148 @@
+---
+title: "Vaccine Impact Estimates"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{vaccine_impact_estimates}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(vaccineimpact)
+```
+
+This package proposes to assess the impact of vaccines using the following methods:
+
+- Number of events averted by vaccination (NAE)
+- Number of events avertable by increasing the vaccine coverage (NAbE)
+- Number needed to vaccinate (NNV) to prevent one event
+
+# Mathematical Formulas
+
+## 1. Number of events averted by vaccination (NAE)
+
+The number of events averted by vaccination at time $t$ is calculated as:
+
+$$NAE_t = e_{A(t)} \frac{VC_t VE_t}{(1 - VC_t VE_t)}$$
+
+with:
+
+- $e_{A(t)}$: Number of events at time $t$
+- $VC_t$: Vaccine coverage at time $t$
+- $VE_t$: Vaccine effectiveness at time $t$
+
+## 2. Number of avertable events considering an increase in final coverage (NAbE)
+
+The number of averted events with alpha parameter at time $t$:
+
+$$NAbE_t(\alpha) = e_{A(t)} \frac{VC(\alpha)_t VE_t}{(1 - VC(\alpha)_t VE_t)}$$
+
+with:
+
+- $e_{A(t)}$: Number of events at time $t$
+- $VC(\alpha)_t$: Hypothetical vaccine coverage during time $t$ if the vaccine coverage was increased by a factor of alpha parameter
+- $VE_t$: Vaccine effectiveness at time $t$
+
+$VC(\alpha)_t$ is computed as:
+
+$$VC_t(\alpha) = \sum_{i=1}^{t} (VC_t - VC_{t-1}) \left(1 + \frac{\alpha}{VC_T}\right)$$
+
+with:
+
+- $VC_t$: Vaccine coverage at time $t$ ($VC_0 = 0$)
+- $VC_{t-1}$: Vaccine coverage at time $t-1$
+- $\alpha$: Increase in final vaccine coverage
+- $VC_T$: Maximum vaccine coverage
+
+## 3. Number Needed to Vaccinate (NNV)
+
+The number needed to vaccinate at time $t$ is calculated as:
+
+$$NNV_t = \frac{1}{R_{B(t)} VE_t}$$
+
+where $$R_{B(t)} = \frac{e_{A(t)} + NAE_t}{N_t}$$, $R_{B(t)}$ represents the rate of events expected in a counterfactual population without a vaccination program
+
+with:
+
+- $VE_t$: Vaccine effectiveness at time $t$
+- $e_{A(t)}$: Number of events at time $t$
+- $NAE_t$: Number of events averted by vaccination at time $t$
+- $N_t$: Population at risk at time $t$
+
+# Example
+
+We use some toy data to illustrate the usage of the package.
+
+```{r example}
+data(coverage_and_incidence_mock_data)
+coverage <- coverage_and_incidence_mock_data$coverage_data
+incidence <- coverage_and_incidence_mock_data$incidence_data
+vaccine_effectiveness <- ve_mock_data$ve
+```
+
+## NAE
+
+```{r}
+nae <- compute_events_averted_by_vaccination(
+  events = incidence$events,
+  cumulative_coverage = coverage$cumulative_coverage,
+  vaccine_effectiveness = vaccine_effectiveness
+)
+nae
+```
+
+## NAbE
+
+```{r}
+nabe <- compute_events_avertable_by_increasing_coverage(
+  events = incidence$events,
+  diff_cumulative_coverage = c(0, diff(coverage$cumulative_coverage)),
+  target_coverage = max(coverage$cumulative_coverage),
+  alpha = 0.1, # 10% increase in final coverage
+  vaccine_effectiveness = vaccine_effectiveness
+)
+nabe
+```
+
+It is also possible to compute the number of avertable events for many values of alpha:
+
+```{r}
+nabe_many_alphas <- compute_events_avertable_by_increasing_coverage_many_alphas(
+  events = incidence$events,
+  diff_cumulative_coverage = c(0, diff(coverage$cumulative_coverage)),
+  target_coverage = max(coverage$cumulative_coverage),
+  alphas = c(0.1, 0.2, 0.3),
+  vaccine_effectiveness = vaccine_effectiveness
+)
+nabe_many_alphas
+```
+
+## NNV
+
+```{r}
+initial_pop_at_risk <- 1000
+pop_at_risk <- initial_pop_at_risk - cumsum(incidence$events)
+
+nnv <- compute_number_needed_to_vaccinate(
+  events = incidence$events,
+  events_averted = nae,
+  pop_at_risk = pop_at_risk,
+  vaccine_effectiveness = vaccine_effectiveness
+)
+nnv
+```
+
+## References
+
+We applied an adapted version of methods used by Foppa et al. and Machado et al. for influenza vaccination impact.
+
+- Foppa IM, Cheng PY, Reynolds SB, Shay DK, Carias C, Bresee JS, et al. Deaths averted by influenza vaccination in the U.S. during the seasons 2005/06 through 2013/14. Vaccine. 2015 June 12;33(26):3003–9. 
+
+-	Machado A, Mazagatos C, Dijkstra F, Kislaya I, Gherasim A, McDonald SA, et al. Impact of influenza vaccination programmes among the elderly population on primary care, Portugal, Spain and the Netherlands: 2015/16 to 2017/18 influenza seasons. Euro Surveill Bull Eur Sur Mal Transm Eur Commun Dis Bull. 2019 Nov;24(45):1900268. 
