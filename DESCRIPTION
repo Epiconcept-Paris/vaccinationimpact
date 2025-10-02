@@ -1,11 +1,11 @@
 Package: vaccinationimpact
-Title: Impact Study of Vaccine Effectiveness
+Title: Impact Study of Vaccination Campaigns
 Version: 0.1.0
 Authors@R: c( 
     person("Yohann", "Mansiaux", , "y.mansiaux@epiconcept.fr", role = c("aut", "cre")),
     person("Alexandre", "Blake", , "a.blake@epiconcept.fr", role = c("aut")),
     person("Baltazar", "Nunes", , "b.nunes@epiconcept.fr", role = c("aut")))
-Description: This package provides tools to compute impact of vaccines.
+Description: This package provides tools to compute impact of vaccination campaigns.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
