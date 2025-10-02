@@ -105,4 +105,5 @@ nnv
 #> [50]        NA        NA        NA
 ```
 
-More information can be found in the vignette.
+More information can be found in the
+[vignette](https://epiconcept-paris.github.io/vaccine_impact/articles/vaccine_impact_estimates.html).

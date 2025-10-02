@@ -87,4 +87,4 @@ nnv <- compute_number_needed_to_vaccinate(
 nnv
 ```
 
-More information can be found in the vignette.
+More information can be found in the [vignette](https://epiconcept-paris.github.io/vaccine_impact/articles/vaccine_impact_estimates.html).
