@@ -7,6 +7,8 @@ Authors@R: c(
     person("Baltazar", "Nunes", , "b.nunes@epiconcept.fr", role = c("aut")))
 Description: This package provides tools to compute impact of vaccination campaigns.
 License: MIT + file LICENSE
+URL: https://github.com/Epiconcept-Paris/vaccinationimpact/,
+    https://epiconcept-paris.github.io/vaccinationimpact/
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
