@@ -1,15 +1,15 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# vaccineimpact
+# vaccinationimpact
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/Epiconcept-Paris/vaccineimpact/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Epiconcept-Paris/vaccineimpact/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/Epiconcept-Paris/vaccinationimpact/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Epiconcept-Paris/vaccinationimpact/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of `{vaccineimpact}` is to assess the impact of vaccines using
-the following estimates:
+The goal of `{vaccinationimpact}` is to assess the impact of vaccination
+campaigns using the following estimates:
 
 - Number of events averted by vaccination (NAE)
 - Number of avertable events considering an increase in final coverage
@@ -18,12 +18,12 @@ the following estimates:
 
 ## Installation
 
-You can install the development version of vaccineimpact from
+You can install the development version of vaccinationimpact from
 [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("Epiconcept-Paris/vaccineimpact")
+devtools::install_github("Epiconcept-Paris/vaccinationimpact")
 ```
 
 ## Example
@@ -32,7 +32,7 @@ Some toy data is included in the package to illustrate the usage of the
 package.
 
 ``` r
-library(vaccineimpact)
+library(vaccinationimpact)
 data(coverage_and_incidence_mock_data)
 data(ve_mock_data)
 coverage <- coverage_and_incidence_mock_data$coverage_data
@@ -106,4 +106,4 @@ nnv
 ```
 
 More information can be found in the
-[vignette](https://epiconcept-paris.github.io/vaccine_impact/articles/vaccine_impact_estimates.html).
+[vignette](https://epiconcept-paris.github.io/vaccinationimpact/articles/vaccination_impact_estimates.html).

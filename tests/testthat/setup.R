@@ -2,7 +2,7 @@
 # This file is run before tests
 
 # Load the package
-library(vaccineimpact)
+library(vaccinationimpact)
 
 # Load test data
 data("coverage_and_incidence_mock_data")

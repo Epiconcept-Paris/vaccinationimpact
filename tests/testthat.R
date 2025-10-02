@@ -1,7 +1,7 @@
-# This file is part of the {vaccineimpact} package.
+# This file is part of the {vaccinationimpact} package.
 # It is loaded automatically by R CMD check.
 
 library(testthat)
-library(vaccineimpact)
+library(vaccinationimpact)
 
-test_check("vaccineimpact")
+test_check("vaccinationimpact")
