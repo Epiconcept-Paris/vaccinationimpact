@@ -603,14 +603,14 @@ padding-top: 0px;
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<h1 id="vaccineimpact">vaccineimpact</h1>
+<h1 id="vaccinationimpact">vaccinationimpact</h1>
 <!-- badges: start -->
 
-<p><a href="https://github.com/Epiconcept-Paris/vaccineimpact/actions/workflows/R-CMD-check.yaml"><img role="img" aria-label="R-CMD-check" src="data:text/plain; charset=utf-8;charset=utf-8,Not%20Found" alt="R-CMD-check" /></a></p>
+<p><a href="https://github.com/Epiconcept-Paris/vaccinationimpact/actions/workflows/R-CMD-check.yaml"><img role="img" aria-label="R-CMD-check" src="data:text/plain; charset=utf-8;charset=utf-8,Not%20Found" alt="R-CMD-check" /></a></p>
 <!-- badges: end -->
 
-<p>The goal of <code>{vaccineimpact}</code> is to assess the impact of
-vaccines using the following estimates:</p>
+<p>The goal of <code>{vaccinationimpact}</code> is to assess the impact
+of vaccination campaigns using the following estimates:</p>
 <ul>
 <li>Number of events averted by vaccination (NAE)</li>
 <li>Number of avertable events considering an increase in final coverage
@@ -618,13 +618,13 @@ vaccines using the following estimates:</p>
 <li>Number needed to vaccinate (NNV) to prevent one event</li>
 </ul>
 <h2 id="installation">Installation</h2>
-<p>You can install the development version of vaccineimpact from <a href="https://github.com/">GitHub</a> with:</p>
+<p>You can install the development version of vaccinationimpact from <a href="https://github.com/">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;Epiconcept-Paris/vaccineimpact&quot;</span>)</span></code></pre></div>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;Epiconcept-Paris/vaccinationimpact&quot;</span>)</span></code></pre></div>
 <h2 id="example">Example</h2>
 <p>Some toy data is included in the package to illustrate the usage of
 the package.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(vaccineimpact)</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(vaccinationimpact)</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">data</span>(coverage_and_incidence_mock_data)</span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">data</span>(ve_mock_data)</span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>coverage <span class="ot">&lt;-</span> coverage_and_incidence_mock_data<span class="sc">$</span>coverage_data</span>
@@ -683,7 +683,7 @@ the package.</p>
 <span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; [36]        NA        NA        NA        NA        NA        NA        NA</span></span>
 <span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt; [43]        NA        NA        NA        NA        NA        NA        NA</span></span>
 <span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt; [50]        NA        NA        NA</span></span></code></pre></div>
-<p>More information can be found in the vignette.</p>
+<p>More information can be found in the <a href="https://epiconcept-paris.github.io/vaccinationimpact/articles/vaccination_impact_estimates.html">vignette</a>.</p>
 
 </body>
 </html>

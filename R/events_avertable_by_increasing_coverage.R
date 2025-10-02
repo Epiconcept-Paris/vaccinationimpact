@@ -96,16 +96,15 @@ compute_events_avertable_by_increasing_coverage_many_alphas <- function(
   alphas,
   vaccine_effectiveness
 ) {
-
-res <- lapply(alphas, function(alpha) {
-  nabe <- compute_events_avertable_by_increasing_coverage(
-    events = events,
-    diff_cumulative_coverage = diff_cumulative_coverage,
-    target_coverage = target_coverage,
-    alpha = alpha,
-    vaccine_effectiveness = vaccine_effectiveness
-  )
-  data.frame(alpha = alpha, nabe = nabe)
+  res <- lapply(alphas, function(alpha) {
+    nabe <- compute_events_avertable_by_increasing_coverage(
+      events = events,
+      diff_cumulative_coverage = diff_cumulative_coverage,
+      target_coverage = target_coverage,
+      alpha = alpha,
+      vaccine_effectiveness = vaccine_effectiveness
+    )
+    data.frame(alpha = alpha, nabe = nabe)
   })
   Reduce(rbind, res)
 }

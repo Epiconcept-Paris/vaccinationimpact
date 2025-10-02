@@ -150,48 +150,55 @@ test_that("compute_events_avertable_by_increasing_coverage mathematical properti
 
 
 test_that("compute_events_avertable_by_increasing_coverage_many_alphas works", {
+  nabe_many_alphas <- compute_events_avertable_by_increasing_coverage_many_alphas(
+    events = test_events,
+    diff_cumulative_coverage = test_diff_cumulative_coverage,
+    target_coverage = test_target_coverage,
+    alphas = c(0, 0.1, 0.2, 0.3),
+    vaccine_effectiveness = test_vaccine_effectiveness
+  )
 
-nabe_many_alphas <- compute_events_avertable_by_increasing_coverage_many_alphas(
-  events = test_events,
-  diff_cumulative_coverage = test_diff_cumulative_coverage,
-  target_coverage = test_target_coverage,
-  alphas = c(0, 0.1, 0.2, 0.3),
-  vaccine_effectiveness = test_vaccine_effectiveness
-)
+  nae <- compute_events_averted_by_vaccination(
+    events = test_events,
+    cumulative_coverage = test_diff_cumulative_coverage,
+    vaccine_effectiveness = test_vaccine_effectiveness
+  )
 
-nae <- compute_events_averted_by_vaccination(
-  events = test_events,
-  cumulative_coverage = test_diff_cumulative_coverage,
-  vaccine_effectiveness = test_vaccine_effectiveness
-)
+  nae01 <- compute_events_avertable_by_increasing_coverage(
+    events = test_events,
+    diff_cumulative_coverage = test_diff_cumulative_coverage,
+    target_coverage = test_target_coverage,
+    alpha = 0.1,
+    vaccine_effectiveness = test_vaccine_effectiveness
+  )
 
-nae01 <- compute_events_avertable_by_increasing_coverage(
-  events = test_events,
-  diff_cumulative_coverage = test_diff_cumulative_coverage,
-  target_coverage = test_target_coverage,
-  alpha = 0.1,
-  vaccine_effectiveness = test_vaccine_effectiveness  
-)
+  nae02 <- compute_events_avertable_by_increasing_coverage(
+    events = test_events,
+    diff_cumulative_coverage = test_diff_cumulative_coverage,
+    target_coverage = test_target_coverage,
+    alpha = 0.2,
+    vaccine_effectiveness = test_vaccine_effectiveness
+  )
 
-nae02 <- compute_events_avertable_by_increasing_coverage(
-  events = test_events,
-  diff_cumulative_coverage = test_diff_cumulative_coverage,
-  target_coverage = test_target_coverage,
-  alpha = 0.2,
-  vaccine_effectiveness = test_vaccine_effectiveness  
-)
+  nae03 <- compute_events_avertable_by_increasing_coverage(
+    events = test_events,
+    diff_cumulative_coverage = test_diff_cumulative_coverage,
+    target_coverage = test_target_coverage,
+    alpha = 0.3,
+    vaccine_effectiveness = test_vaccine_effectiveness
+  )
 
-nae03 <- compute_events_avertable_by_increasing_coverage(
-  events = test_events,
-  diff_cumulative_coverage = test_diff_cumulative_coverage,
-  target_coverage = test_target_coverage,
-  alpha = 0.3,
-  vaccine_effectiveness = test_vaccine_effectiveness  
-)
-
-expect_equal(nabe_many_alphas$nabe[which(nabe_many_alphas$alpha == 0)], nae)
-expect_equal(nabe_many_alphas$nabe[which(nabe_many_alphas$alpha == 0.1)], nae01)
-expect_equal(nabe_many_alphas$nabe[which(nabe_many_alphas$alpha == 0.2)], nae02)
-expect_equal(nabe_many_alphas$nabe[which(nabe_many_alphas$alpha == 0.3)], nae03)
-
+  expect_equal(nabe_many_alphas$nabe[which(nabe_many_alphas$alpha == 0)], nae)
+  expect_equal(
+    nabe_many_alphas$nabe[which(nabe_many_alphas$alpha == 0.1)],
+    nae01
+  )
+  expect_equal(
+    nabe_many_alphas$nabe[which(nabe_many_alphas$alpha == 0.2)],
+    nae02
+  )
+  expect_equal(
+    nabe_many_alphas$nabe[which(nabe_many_alphas$alpha == 0.3)],
+    nae03
+  )
 })

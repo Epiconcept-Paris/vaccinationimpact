@@ -1,6 +1,6 @@
-Package: vaccineimpact
+Package: vaccinationimpact
 Title: Impact Study of Vaccine Effectiveness
-Version: 0.0.1
+Version: 0.1.0
 Authors@R: c( 
     person("Yohann", "Mansiaux", , "y.mansiaux@epiconcept.fr", role = c("aut", "cre")),
     person("Alexandre", "Blake", , "a.blake@epiconcept.fr", role = c("aut")),
