@@ -4,8 +4,9 @@ Version: 0.1.0
 Authors@R: c( 
     person("Yohann", "Mansiaux", , "y.mansiaux@epiconcept.fr", role = c("aut", "cre")),
     person("Alexandre", "Blake", , "a.blake@epiconcept.fr", role = c("aut")),
+    person("James", "Humphreys", , "j.humphreys@epiconcept.fr", role = c("aut")),
     person("Baltazar", "Nunes", , "b.nunes@epiconcept.fr", role = c("aut")))
-Description: This package provides tools to compute impact of vaccination campaigns.
+Description: Tools to estimate the impact of vaccination campaigns at population level (number of events averted, number of avertable events, number needed to vaccinate). Inspired by the methodology proposed by Foppa et al. (doi: 10.1016/j.vaccine.2015.02.042) and Machado et al. (doi: 10.2807/1560-7917.ES.2019.24.45.1900268) for influenza vaccination impact.
 License: MIT + file LICENSE
 URL: https://github.com/Epiconcept-Paris/vaccinationimpact/,
     https://epiconcept-paris.github.io/vaccinationimpact/
