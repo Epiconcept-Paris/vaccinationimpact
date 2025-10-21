@@ -84,12 +84,33 @@ We use some toy data to illustrate the usage of the package.
 data(coverage_and_incidence_mock_data)
 coverage <- coverage_and_incidence_mock_data$coverage_data
 incidence <- coverage_and_incidence_mock_data$incidence_data
-vaccine_effectiveness <- ve_mock_data$ve
+```
+
+**Coverage data:**
+
+The coverage values are computed considering a sample size of 1000 individuals.
+
+```{r}
+head(coverage)
+```
+
+**Incidence data:**
+
+```{r}
+head(incidence)
+```
+
+**Vaccine effectiveness data:**
+
+```{r}
+head(ve_mock_data)
 ```
 
 ## NAE
 
 ```{r}
+vaccine_effectiveness <- ve_mock_data$ve
+
 nae <- compute_events_averted_by_vaccination(
   events = incidence$events,
   cumulative_coverage = coverage$cumulative_coverage,
