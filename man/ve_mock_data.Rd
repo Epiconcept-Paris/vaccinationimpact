@@ -8,11 +8,11 @@
 A data frame with 52 rows and 2 variables:
 \describe{
 \item{ week }{  Date }
-\item{ ve }{  numeric }
+\item{ ve }{  numeric: vaccine effectiveness }
 }
 }
 \source{
-Source
+Mock data for vaccine effectiveness
 }
 \usage{
 ve_mock_data

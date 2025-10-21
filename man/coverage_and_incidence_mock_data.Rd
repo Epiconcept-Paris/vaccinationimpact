@@ -5,10 +5,10 @@
 \alias{coverage_and_incidence_mock_data}
 \title{coverage_and_incidence_mock_data}
 \format{
-A data frame with  rows and  variables:
+A list with two data frames:
 \describe{
-\item{ incidence_data }{  data.frame }
-\item{ coverage_data }{  data.frame }
+\item{ incidence_data }{  data.frame with incidence data }
+\item{ coverage_data }{  data.frame with coverage data }
 }
 }
 \source{
@@ -18,6 +18,6 @@ Source
 coverage_and_incidence_mock_data
 }
 \description{
-Description.
+Coverage and incidence mock data. Coverage values are computed considering a sample size of 1000 individuals.
 }
 \keyword{datasets}
