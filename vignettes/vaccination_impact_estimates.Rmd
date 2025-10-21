@@ -63,6 +63,8 @@ with:
 
 ## 3. Number Needed to Vaccinate (NNV)
 
+### Machado et al. method
+
 The number needed to vaccinate at time $t$ is calculated as:
 
 $$NNV_t = \frac{1}{R_{B(t)} VE_t}$$
@@ -75,6 +77,14 @@ with:
 - $e_{A(t)}$: Number of events at time $t$
 - $NAE_t$: Number of events averted by vaccination at time $t$
 - $N_t$: Population at risk at time $t$
+
+### Tuite and Fisman method
+
+The number needed to vaccinate at time $t$ is calculated as:
+
+$$NNV_t = \frac{v_t}{NAE_t}$$
+
+where $v_t$: Number of vaccinated individuals at time $t$
 
 # Example
 
@@ -147,15 +157,27 @@ nabe_many_alphas
 
 ## NNV
 
+### Machado et al. method
+
 ```{r}
 initial_pop_at_risk <- 1000
 pop_at_risk <- initial_pop_at_risk - cumsum(incidence$events)
 
-nnv <- compute_number_needed_to_vaccinate(
+nnv <- compute_number_needed_to_vaccinate_machado(
   events = incidence$events,
   events_averted = nae,
   pop_at_risk = pop_at_risk,
   vaccine_effectiveness = vaccine_effectiveness
+)
+nnv
+```
+
+### Tuite and Fisman method
+
+```{r}
+nnv <- compute_number_needed_to_vaccinate_tuite_fisman(
+  number_of_vaccinated = coverage$number_of_vaccinated,
+  events_averted = nae
 )
 nnv
 ```
@@ -167,3 +189,5 @@ We applied an adapted version of methods used by Foppa et al. and Machado et al.
 - Foppa IM, Cheng PY, Reynolds SB, Shay DK, Carias C, Bresee JS, et al. Deaths averted by influenza vaccination in the U.S. during the seasons 2005/06 through 2013/14. Vaccine. 2015 June 12;33(26):3003–9. 
 
 -	Machado A, Mazagatos C, Dijkstra F, Kislaya I, Gherasim A, McDonald SA, et al. Impact of influenza vaccination programmes among the elderly population on primary care, Portugal, Spain and the Netherlands: 2015/16 to 2017/18 influenza seasons. Euro Surveill Bull Eur Sur Mal Transm Eur Commun Dis Bull. 2019 Nov;24(45):1900268. 
+
+- Tuite AR, Fisman DN. Number-needed-to-vaccinate calculations: fallacies associated with exclusion of transmission. Vaccine. 2013 Jan 30;31(6):973-8.
