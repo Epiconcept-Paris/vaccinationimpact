@@ -63,6 +63,8 @@ with:
 
 ## 3. Number Needed to Vaccinate (NNV)
 
+### Machado et al. method
+
 The number needed to vaccinate at time $t$ is calculated as:
 
 $$NNV_t = \frac{1}{R_{B(t)} VE_t}$$
@@ -76,65 +78,101 @@ with:
 - $NAE_t$: Number of events averted by vaccination at time $t$
 - $N_t$: Population at risk at time $t$
 
+### Tuite and Fisman method
+
+The number needed to vaccinate at time $t$ is calculated as:
+
+$$NNV_t = \frac{v_t}{NAE_t}$$
+
+with:
+
+- $v_t$: Number of vaccinated individuals at time $t$
+
 # Example
 
-We use some toy data to illustrate the usage of the package.
+We use some toy data to illustrate the usage of the package: weekly coverage, incidence and vaccine effectiveness are provided in the package.
 
 ```{r example}
 data(coverage_and_incidence_mock_data)
 coverage <- coverage_and_incidence_mock_data$coverage_data
 incidence <- coverage_and_incidence_mock_data$incidence_data
-vaccine_effectiveness <- ve_mock_data$ve
+```
+
+**Coverage data:**
+
+The coverage values are computed considering a sample size of 1234 individuals.
+
+```{r}
+head(coverage)
+```
+
+**Incidence data:**
+
+```{r}
+head(incidence)
+```
+
+**Vaccine effectiveness data:**
+
+```{r}
+data(ve_mock_data)
+head(ve_mock_data)
 ```
 
 ## NAE
 
 ```{r}
+vaccine_effectiveness <- ve_mock_data$ve
+
 nae <- compute_events_averted_by_vaccination(
-  events = incidence$events,
+  number_of_events = incidence$events,
   cumulative_coverage = coverage$cumulative_coverage,
   vaccine_effectiveness = vaccine_effectiveness
 )
-nae
+plot(nae, type = "l", xlab = "Time", ylab = "Events averted")
 ```
 
 ## NAbE
 
 ```{r}
 nabe <- compute_events_avertable_by_increasing_coverage(
-  events = incidence$events,
-  diff_cumulative_coverage = c(0, diff(coverage$cumulative_coverage)),
-  target_coverage = max(coverage$cumulative_coverage),
-  alpha = 0.1, # 10% increase in final coverage
+  number_of_events = incidence$events,
+  cumulative_coverage = coverage$cumulative_coverage,
+  vaccine_coverage_increase = 0.1, # 10% increase in final coverage
   vaccine_effectiveness = vaccine_effectiveness
 )
-nabe
 ```
 
-It is also possible to compute the number of avertable events for many values of alpha:
+```{r}
+plot(nabe$new_vaccine_coverage, type = "l", xlab = "Time", ylab = "Vaccine coverage with 10% increase")
+```
 
 ```{r}
-nabe_many_alphas <- compute_events_avertable_by_increasing_coverage_many_alphas(
-  events = incidence$events,
-  diff_cumulative_coverage = c(0, diff(coverage$cumulative_coverage)),
-  target_coverage = max(coverage$cumulative_coverage),
-  alphas = c(0.1, 0.2, 0.3),
-  vaccine_effectiveness = vaccine_effectiveness
-)
-nabe_many_alphas
+plot(nabe$nabe, type = "l", xlab = "Time", ylab = "Events averted")
 ```
 
 ## NNV
 
-```{r}
-initial_pop_at_risk <- 1000
-pop_at_risk <- initial_pop_at_risk - cumsum(incidence$events)
+### Machado et al. method
 
-nnv <- compute_number_needed_to_vaccinate(
-  events = incidence$events,
-  events_averted = nae,
-  pop_at_risk = pop_at_risk,
+```{r}
+sample_size <- 1234
+
+nnv <- compute_number_needed_to_vaccinate_machado(
+  number_of_events = incidence$events,
+  number_of_events_averted = nae,
+  population_size = sample_size,
   vaccine_effectiveness = vaccine_effectiveness
+)
+nnv
+```
+
+### Tuite and Fisman method
+
+```{r}
+nnv <- compute_number_needed_to_vaccinate_tuite_fisman(
+  number_of_vaccinated = cumsum(coverage$number_of_vaccinated),
+  number_of_events_averted = nae
 )
 nnv
 ```
@@ -146,3 +184,5 @@ We applied an adapted version of methods used by Foppa et al. and Machado et al.
 - Foppa IM, Cheng PY, Reynolds SB, Shay DK, Carias C, Bresee JS, et al. Deaths averted by influenza vaccination in the U.S. during the seasons 2005/06 through 2013/14. Vaccine. 2015 June 12;33(26):3003–9. 
 
 -	Machado A, Mazagatos C, Dijkstra F, Kislaya I, Gherasim A, McDonald SA, et al. Impact of influenza vaccination programmes among the elderly population on primary care, Portugal, Spain and the Netherlands: 2015/16 to 2017/18 influenza seasons. Euro Surveill Bull Eur Sur Mal Transm Eur Commun Dis Bull. 2019 Nov;24(45):1900268. 
+
+- Tuite AR, Fisman DN. Number-needed-to-vaccinate calculations: fallacies associated with exclusion of transmission. Vaccine. 2013 Jan 30;31(6):973-8.

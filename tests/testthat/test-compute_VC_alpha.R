@@ -1,7 +1,7 @@
-# Test compute_VC_alpha function
+# Test compute_new_vaccine_coverage function (internal function)
 
-test_that("compute_VC_alpha works with valid inputs", {
-  result <- compute_VC_alpha(
+test_that("compute_new_vaccine_coverage works with valid inputs", {
+  result <- compute_new_vaccine_coverage(
     test_diff_cumulative_coverage,
     test_target_coverage,
     test_alpha
@@ -20,9 +20,9 @@ test_that("compute_VC_alpha works with valid inputs", {
   expect_false(any(is.na(result)))
 })
 
-test_that("compute_VC_alpha handles edge cases", {
+test_that("compute_new_vaccine_coverage handles edge cases", {
   # Test with alpha = 0 (no increase)
-  result_zero <- compute_VC_alpha(
+  result_zero <- compute_new_vaccine_coverage(
     test_diff_cumulative_coverage,
     test_target_coverage,
     0
@@ -30,7 +30,7 @@ test_that("compute_VC_alpha handles edge cases", {
   expect_equal(result_zero, test_diff_cumulative_coverage)
 
   # Test with alpha = 1 (maximum increase)
-  result_max <- compute_VC_alpha(
+  result_max <- compute_new_vaccine_coverage(
     test_diff_cumulative_coverage,
     test_target_coverage,
     1
@@ -42,10 +42,10 @@ test_that("compute_VC_alpha handles edge cases", {
   expect_equal(result_max, expected_max)
 })
 
-test_that("compute_VC_alpha validates alpha parameter", {
+test_that("compute_new_vaccine_coverage validates alpha parameter", {
   # Test that alpha must be a single value
   expect_error(
-    compute_VC_alpha(
+    compute_new_vaccine_coverage(
       test_diff_cumulative_coverage,
       test_target_coverage,
       c(0.1, 0.2)
@@ -55,36 +55,36 @@ test_that("compute_VC_alpha validates alpha parameter", {
 
   # Test that alpha must be between 0 and 1
   expect_error(
-    compute_VC_alpha(test_diff_cumulative_coverage, test_target_coverage, -0.1),
+    compute_new_vaccine_coverage(test_diff_cumulative_coverage, test_target_coverage, -0.1),
     "alpha must be between 0 and 1"
   )
 
   expect_error(
-    compute_VC_alpha(test_diff_cumulative_coverage, test_target_coverage, 1.1),
+    compute_new_vaccine_coverage(test_diff_cumulative_coverage, test_target_coverage, 1.1),
     "alpha must be between 0 and 1"
   )
 })
 
-test_that("compute_VC_alpha handles boundary values", {
+test_that("compute_new_vaccine_coverage handles boundary values", {
   # Test with alpha = 0
-  expect_no_error(compute_VC_alpha(
+  expect_no_error(compute_new_vaccine_coverage(
     test_diff_cumulative_coverage,
     test_target_coverage,
     0
   ))
 
   # Test with alpha = 1
-  expect_no_error(compute_VC_alpha(
+  expect_no_error(compute_new_vaccine_coverage(
     test_diff_cumulative_coverage,
     test_target_coverage,
     1
   ))
 })
 
-test_that("compute_VC_alpha with different target coverage values", {
+test_that("compute_new_vaccine_coverage with different target coverage values", {
   # Test with very small target coverage
   small_target <- 0.01
-  result_small <- compute_VC_alpha(
+  result_small <- compute_new_vaccine_coverage(
     test_diff_cumulative_coverage,
     small_target,
     test_alpha
@@ -93,7 +93,7 @@ test_that("compute_VC_alpha with different target coverage values", {
 
   # Test with large target coverage
   large_target <- 0.9
-  result_large <- compute_VC_alpha(
+  result_large <- compute_new_vaccine_coverage(
     test_diff_cumulative_coverage,
     large_target,
     test_alpha

@@ -114,4 +114,4 @@ ve_mock_data$ve <- ve_mock_data$ve + rnorm(nrow(ve_mock_data), 0, 0.05)
 
 usethis::use_data(ve_mock_data, overwrite = TRUE)
 
-checkhelper::use_data_doc("ve_mock_data")
+# checkhelper::use_data_doc("ve_mock_data")

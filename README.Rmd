@@ -37,7 +37,7 @@ devtools::install_github("Epiconcept-Paris/vaccinationimpact")
 
 ## Example
 
-Some toy data is included in the package to illustrate the usage of the package.
+We use some toy data to illustrate the usage of the package: weekly coverage, incidence and vaccine effectiveness are provided in the package.
 
 ```{r example}
 library(vaccinationimpact)
@@ -52,7 +52,7 @@ vaccine_effectiveness <- ve_mock_data$ve
 
 ```{r}
 nae <- compute_events_averted_by_vaccination(
-  events = incidence$events,
+  number_of_events = incidence$events,
   cumulative_coverage = coverage$cumulative_coverage,
   vaccine_effectiveness = vaccine_effectiveness
 )
@@ -63,28 +63,40 @@ nae
 
 ```{r}
 nabe <- compute_events_avertable_by_increasing_coverage(
-  events = incidence$events,
-  diff_cumulative_coverage = c(0, diff(coverage$cumulative_coverage)),
-  target_coverage = max(coverage$cumulative_coverage),
-  alpha = 0.1, # 10% increase in final coverage
+  number_of_events = incidence$events,
+  cumulative_coverage = coverage$cumulative_coverage,
+  vaccine_coverage_increase = 0.1, # 10% increase in final coverage
   vaccine_effectiveness = vaccine_effectiveness
 )
-nabe
+nabe$nabe
 ```
 
 ### NNV
 
-```{r}
-initial_pop_at_risk <- 1000
-pop_at_risk <- initial_pop_at_risk - cumsum(incidence$events)
+NNV can be estimated using 2 methods: Machado et al. and Tuite and Fisman (see vignette for more details).
 
-nnv <- compute_number_needed_to_vaccinate(
-  events = incidence$events,
-  events_averted = nae,
-  pop_at_risk = pop_at_risk,
+#### Machado et al. method
+
+```{r}
+sample_size <- 1234
+
+nnv_machado <- compute_number_needed_to_vaccinate_machado(
+  number_of_events = incidence$events,
+  number_of_events_averted = nae,
+  population_size = sample_size,
   vaccine_effectiveness = vaccine_effectiveness
 )
-nnv
+nnv_machado
+```
+
+#### Tuite and Fisman method
+
+```{r}
+nnv_tuite_fisman <- compute_number_needed_to_vaccinate_tuite_fisman(
+  number_of_vaccinated = cumsum(coverage$number_of_vaccinated),
+  number_of_events_averted = nae
+)
+nnv_tuite_fisman
 ```
 
 More information can be found in the [vignette](https://epiconcept-paris.github.io/vaccinationimpact/articles/vaccination_impact_estimates.html).
