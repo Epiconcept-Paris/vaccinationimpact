@@ -11,8 +11,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Impact Study of Vaccination Campaigns">
-<meta name="description" content="Tools to estimate the impact of vaccination campaigns at population level (number of events averted, number of avertable events, number needed to vaccinate). Inspired by the methodology proposed by Foppa et al. &lt;doi: 10.1016/j.vaccine.2015.02.042&gt; and Machado et al. &lt;doi: 10.2807/1560-7917.ES.2019.24.45.1900268&gt; for influenza vaccination impact.">
-<meta property="og:description" content="Tools to estimate the impact of vaccination campaigns at population level (number of events averted, number of avertable events, number needed to vaccinate). Inspired by the methodology proposed by Foppa et al. &lt;doi: 10.1016/j.vaccine.2015.02.042&gt; and Machado et al. &lt;doi: 10.2807/1560-7917.ES.2019.24.45.1900268&gt; for influenza vaccination impact.">
+<meta name="description" content="Tools to estimate the impact of vaccination campaigns at population level (number of events averted, number of avertable events, number needed to vaccinate). Inspired by the methodology proposed by Foppa et al. (2015) &lt;doi:10.1016/j.vaccine.2015.02.042&gt; and Machado et al. (2019) &lt;doi:10.2807/1560-7917.ES.2019.24.45.1900268&gt; for influenza vaccination impact.">
+<meta property="og:description" content="Tools to estimate the impact of vaccination campaigns at population level (number of events averted, number of avertable events, number needed to vaccinate). Inspired by the methodology proposed by Foppa et al. (2015) &lt;doi:10.1016/j.vaccine.2015.02.042&gt; and Machado et al. (2019) &lt;doi:10.2807/1560-7917.ES.2019.24.45.1900268&gt; for influenza vaccination impact.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -74,7 +74,7 @@
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>Some toy data is included in the package to illustrate the usage of the package.</p>
+<p>We use some toy data to illustrate the usage of the package: weekly coverage, incidence and vaccine effectiveness are provided in the package.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Epiconcept-Paris/vaccinationimpact/" class="external-link">vaccinationimpact</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">coverage_and_incidence_mock_data</span><span class="op">)</span></span>
@@ -86,67 +86,86 @@
 <h3 id="nae">NAE<a class="anchor" aria-label="anchor" href="#nae"></a>
 </h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nae</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/vaccine_impact.html">compute_events_averted_by_vaccination</a></span><span class="op">(</span></span>
-<span>  events <span class="op">=</span> <span class="va">incidence</span><span class="op">$</span><span class="va">events</span>,</span>
+<code class="sourceCode R"><span><span class="va">nae</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compute_events_averted_by_vaccination.html">compute_events_averted_by_vaccination</a></span><span class="op">(</span></span>
+<span>  number_of_events <span class="op">=</span> <span class="va">incidence</span><span class="op">$</span><span class="va">events</span>,</span>
 <span>  cumulative_coverage <span class="op">=</span> <span class="va">coverage</span><span class="op">$</span><span class="va">cumulative_coverage</span>,</span>
 <span>  vaccine_effectiveness <span class="op">=</span> <span class="va">vaccine_effectiveness</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">nae</span></span>
-<span><span class="co">#&gt;  [1]  0.0000000  0.0000000  1.8404774  6.6095710 11.0488282  7.3471758</span></span>
-<span><span class="co">#&gt;  [7]  5.6472456 14.3417981  6.8704862  8.6083118  7.4468097  6.6467970</span></span>
-<span><span class="co">#&gt; [13]  1.7373137  3.3178507  4.7765819  3.5559705  0.8146056  0.6098621</span></span>
-<span><span class="co">#&gt; [19]  1.9862810  1.2618912  0.0000000  0.0000000  0.0000000  0.0000000</span></span>
-<span><span class="co">#&gt; [25]  0.0000000  0.8982954  0.0000000  0.0000000  0.0000000  0.0000000</span></span>
-<span><span class="co">#&gt; [31]  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000</span></span>
-<span><span class="co">#&gt; [37]  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000</span></span>
-<span><span class="co">#&gt; [43]  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000</span></span>
-<span><span class="co">#&gt; [49]  0.0000000  0.0000000  0.0000000  0.0000000</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1]  2.285438  8.405426 14.187702 19.150751 22.333578 26.258535 25.277745</span></span>
+<span><span class="co">#&gt;  [8] 14.479245 14.524775 20.687536  9.940025  5.904505  6.979458  3.795576</span></span>
+<span><span class="co">#&gt; [15]  4.214308  1.203321  1.917519  3.123184  2.798718  1.489643  0.000000</span></span>
+<span><span class="co">#&gt; [22]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000</span></span>
+<span><span class="co">#&gt; [29]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000</span></span>
+<span><span class="co">#&gt; [36]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000</span></span>
+<span><span class="co">#&gt; [43]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000</span></span>
+<span><span class="co">#&gt; [50]  0.000000  0.000000  0.000000</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="nabe">NAbE<a class="anchor" aria-label="anchor" href="#nabe"></a>
 </h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nabe</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/vaccine_impact.html">compute_events_avertable_by_increasing_coverage</a></span><span class="op">(</span></span>
-<span>  events <span class="op">=</span> <span class="va">incidence</span><span class="op">$</span><span class="va">events</span>,</span>
-<span>  diff_cumulative_coverage <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/diff.html" class="external-link">diff</a></span><span class="op">(</span><span class="va">coverage</span><span class="op">$</span><span class="va">cumulative_coverage</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  target_coverage <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">coverage</span><span class="op">$</span><span class="va">cumulative_coverage</span><span class="op">)</span>,</span>
-<span>  alpha <span class="op">=</span> <span class="fl">0.1</span>, <span class="co"># 10% increase in final coverage</span></span>
+<code class="sourceCode R"><span><span class="va">nabe</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compute_events_avertable_by_increasing_coverage.html">compute_events_avertable_by_increasing_coverage</a></span><span class="op">(</span></span>
+<span>  number_of_events <span class="op">=</span> <span class="va">incidence</span><span class="op">$</span><span class="va">events</span>,</span>
+<span>  cumulative_coverage <span class="op">=</span> <span class="va">coverage</span><span class="op">$</span><span class="va">cumulative_coverage</span>,</span>
+<span>  vaccine_coverage_increase <span class="op">=</span> <span class="fl">0.1</span>, <span class="co"># 10% increase in final coverage</span></span>
 <span>  vaccine_effectiveness <span class="op">=</span> <span class="va">vaccine_effectiveness</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">nabe</span></span>
-<span><span class="co">#&gt;  [1] 0.000000000 0.000000000 2.083148922 4.199830115 4.256792132 1.599197939</span></span>
-<span><span class="co">#&gt;  [7] 0.965054815 1.103605549 0.512949020 0.373944572 0.231478586 0.130971005</span></span>
-<span><span class="co">#&gt; [13] 0.026780188 0.028099463 0.039313806 0.019047362 0.003860255 0.002157079</span></span>
-<span><span class="co">#&gt; [19] 0.004239641 0.002186660 0.000000000 0.000000000 0.000000000 0.000000000</span></span>
-<span><span class="co">#&gt; [25] 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</span></span>
-<span><span class="co">#&gt; [31] 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</span></span>
-<span><span class="co">#&gt; [37] 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</span></span>
-<span><span class="co">#&gt; [43] 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</span></span>
-<span><span class="co">#&gt; [49] 0.000000000 0.000000000 0.000000000 0.000000000</span></span></code></pre></div>
+<span><span class="va">nabe</span><span class="op">$</span><span class="va">nabe</span></span>
+<span><span class="co">#&gt;  [1]  2.587606  9.637167 16.574011 22.651941 26.915232 32.599316 31.352360</span></span>
+<span><span class="co">#&gt;  [8] 17.750085 18.067588 25.959763 12.974325  7.574670  8.970289  4.844898</span></span>
+<span><span class="co">#&gt; [15]  5.299678  1.593502  2.451064  3.811307  3.564364  1.847972  0.000000</span></span>
+<span><span class="co">#&gt; [22]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000</span></span>
+<span><span class="co">#&gt; [29]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000</span></span>
+<span><span class="co">#&gt; [36]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000</span></span>
+<span><span class="co">#&gt; [43]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000</span></span>
+<span><span class="co">#&gt; [50]  0.000000  0.000000  0.000000</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="nnv">NNV<a class="anchor" aria-label="anchor" href="#nnv"></a>
 </h3>
+<p>NNV can be estimated using 2 methods: Machado et al. and Tuite and Fisman (see vignette for more details).</p>
+<div class="section level4">
+<h4 id="machado-et-al-method">Machado et al. method<a class="anchor" aria-label="anchor" href="#machado-et-al-method"></a>
+</h4>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">initial_pop_at_risk</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
-<span><span class="va">pop_at_risk</span> <span class="op">&lt;-</span> <span class="va">initial_pop_at_risk</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="va">incidence</span><span class="op">$</span><span class="va">events</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">sample_size</span> <span class="op">&lt;-</span> <span class="fl">1234</span></span>
 <span></span>
-<span><span class="va">nnv</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/vaccine_impact.html">compute_number_needed_to_vaccinate</a></span><span class="op">(</span></span>
-<span>  events <span class="op">=</span> <span class="va">incidence</span><span class="op">$</span><span class="va">events</span>,</span>
-<span>  events_averted <span class="op">=</span> <span class="va">nae</span>,</span>
-<span>  pop_at_risk <span class="op">=</span> <span class="va">pop_at_risk</span>,</span>
+<span><span class="va">nnv_machado</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compute_number_needed_to_vaccinate_machado.html">compute_number_needed_to_vaccinate_machado</a></span><span class="op">(</span></span>
+<span>  number_of_events <span class="op">=</span> <span class="va">incidence</span><span class="op">$</span><span class="va">events</span>,</span>
+<span>  number_of_events_averted <span class="op">=</span> <span class="va">nae</span>,</span>
+<span>  population_size <span class="op">=</span> <span class="va">sample_size</span>,</span>
 <span>  vaccine_effectiveness <span class="op">=</span> <span class="va">vaccine_effectiveness</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">nnv</span></span>
-<span><span class="co">#&gt;  [1]  51.28326  44.51670  37.08168  23.94800  21.99383  42.35913  68.40574</span></span>
-<span><span class="co">#&gt;  [8]  29.51987  67.68764  57.01188  68.45710  78.07731 305.59363 161.87950</span></span>
-<span><span class="co">#&gt; [15] 113.25044 152.61881 670.36609 898.66866 276.16938 434.53507        NA</span></span>
-<span><span class="co">#&gt; [22]        NA        NA        NA        NA 610.93487        NA        NA</span></span>
+<span><span class="va">nnv_machado</span></span>
+<span><span class="co">#&gt;  [1]  41.12997  29.50475  26.92473  27.41407  29.01461  27.30541  30.97586</span></span>
+<span><span class="co">#&gt;  [8]  58.08314  60.58614  43.89116  93.86294 160.55538 137.54650 255.03374</span></span>
+<span><span class="co">#&gt; [15] 230.88015 812.75083 511.59870 314.74289 351.58960 661.23225        NA</span></span>
+<span><span class="co">#&gt; [22]        NA        NA        NA        NA        NA        NA        NA</span></span>
+<span><span class="co">#&gt; [29]        NA        NA        NA        NA        NA        NA        NA</span></span>
+<span><span class="co">#&gt; [36]        NA        NA        NA        NA        NA        NA        NA</span></span>
+<span><span class="co">#&gt; [43]        NA        NA        NA        NA        NA        NA        NA</span></span>
+<span><span class="co">#&gt; [50]        NA        NA        NA</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="tuite-and-fisman-method">Tuite and Fisman method<a class="anchor" aria-label="anchor" href="#tuite-and-fisman-method"></a>
+</h4>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">nnv_tuite_fisman</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compute_number_needed_to_vaccinate_tuite_fisman.html">compute_number_needed_to_vaccinate_tuite_fisman</a></span><span class="op">(</span></span>
+<span>  number_of_vaccinated <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="va">coverage</span><span class="op">$</span><span class="va">number_of_vaccinated</span><span class="op">)</span>,</span>
+<span>  number_of_events_averted <span class="op">=</span> <span class="va">nae</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">nnv_tuite_fisman</span></span>
+<span><span class="co">#&gt;  [1]  41.12997  29.50475  26.92473  27.41407  29.01461  27.30541  30.97586</span></span>
+<span><span class="co">#&gt;  [8]  58.08314  60.58614  43.89116  93.86294 160.55538 137.54650 255.03374</span></span>
+<span><span class="co">#&gt; [15] 230.88015 812.75083 511.59870 314.74289 351.58960 661.23225        NA</span></span>
+<span><span class="co">#&gt; [22]        NA        NA        NA        NA        NA        NA        NA</span></span>
 <span><span class="co">#&gt; [29]        NA        NA        NA        NA        NA        NA        NA</span></span>
 <span><span class="co">#&gt; [36]        NA        NA        NA        NA        NA        NA        NA</span></span>
 <span><span class="co">#&gt; [43]        NA        NA        NA        NA        NA        NA        NA</span></span>
 <span><span class="co">#&gt; [50]        NA        NA        NA</span></span></code></pre></div>
 <p>More information can be found in the <a href="https://epiconcept-paris.github.io/vaccinationimpact/articles/vaccination_impact_estimates.html" class="external-link">vignette</a>.</p>
+</div>
 </div>
 </div>
 </div>

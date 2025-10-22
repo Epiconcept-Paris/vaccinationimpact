@@ -7,9 +7,12 @@
 <url><loc>/authors.html</loc></url>
 <url><loc>/index.html</loc></url>
 <url><loc>/news/index.html</loc></url>
+<url><loc>/reference/compute_events_avertable_by_increasing_coverage.html</loc></url>
+<url><loc>/reference/compute_events_averted_by_vaccination.html</loc></url>
+<url><loc>/reference/compute_number_needed_to_vaccinate_machado.html</loc></url>
+<url><loc>/reference/compute_number_needed_to_vaccinate_tuite_fisman.html</loc></url>
 <url><loc>/reference/coverage_and_incidence_mock_data.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
-<url><loc>/reference/vaccine_impact.html</loc></url>
 <url><loc>/reference/ve_mock_data.html</loc></url>
 </urlset>
 

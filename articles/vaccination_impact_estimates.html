@@ -156,6 +156,9 @@ Maximum vaccine coverage observed</li>
 <div class="section level3">
 <h3 id="number-needed-to-vaccinate-nnv">3. Number Needed to Vaccinate (NNV)<a class="anchor" aria-label="anchor" href="#number-needed-to-vaccinate-nnv"></a>
 </h3>
+<div class="section level4">
+<h4 id="machado-et-al--method">Machado et al. method<a class="anchor" aria-label="anchor" href="#machado-et-al--method"></a>
+</h4>
 <p>The number needed to vaccinate at time
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
 is calculated as:</p>
@@ -189,248 +192,141 @@ Population at risk at time
 </li>
 </ul>
 </div>
+<div class="section level4">
+<h4 id="tuite-and-fisman-method">Tuite and Fisman method<a class="anchor" aria-label="anchor" href="#tuite-and-fisman-method"></a>
+</h4>
+<p>The number needed to vaccinate at time
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+is calculated as:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>N</mi><msub><mi>V</mi><mi>t</mi></msub><mo>=</mo><mfrac><msub><mi>v</mi><mi>t</mi></msub><mrow><mi>N</mi><mi>A</mi><msub><mi>E</mi><mi>t</mi></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">NNV_t = \frac{v_t}{NAE_t}</annotation></semantics></math></p>
+<p>with:</p>
+<ul>
+<li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><mi>t</mi></msub><annotation encoding="application/x-tex">v_t</annotation></semantics></math>:
+Number of vaccinated individuals at time
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>We use some toy data to illustrate the usage of the package.</p>
+<p>We use some toy data to illustrate the usage of the package: weekly
+coverage, incidence and vaccine effectiveness are provided in the
+package.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">coverage_and_incidence_mock_data</span><span class="op">)</span></span>
 <span><span class="va">coverage</span> <span class="op">&lt;-</span> <span class="va">coverage_and_incidence_mock_data</span><span class="op">$</span><span class="va">coverage_data</span></span>
-<span><span class="va">incidence</span> <span class="op">&lt;-</span> <span class="va">coverage_and_incidence_mock_data</span><span class="op">$</span><span class="va">incidence_data</span></span>
-<span><span class="va">vaccine_effectiveness</span> <span class="op">&lt;-</span> <span class="va">ve_mock_data</span><span class="op">$</span><span class="va">ve</span></span></code></pre></div>
+<span><span class="va">incidence</span> <span class="op">&lt;-</span> <span class="va">coverage_and_incidence_mock_data</span><span class="op">$</span><span class="va">incidence_data</span></span></code></pre></div>
+<p><strong>Coverage data:</strong></p>
+<p>The coverage values are computed considering a sample size of 1234
+individuals.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">coverage</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         week number_of_vaccinated weekly_coverage cumulative_coverage</span></span>
+<span><span class="co">#&gt; 1 2023-10-01                   94      0.07617504          0.07617504</span></span>
+<span><span class="co">#&gt; 2 2023-10-08                  154      0.12479741          0.20097245</span></span>
+<span><span class="co">#&gt; 3 2023-10-15                  134      0.10858995          0.30956240</span></span>
+<span><span class="co">#&gt; 4 2023-10-22                  143      0.11588331          0.42544571</span></span>
+<span><span class="co">#&gt; 5 2023-10-29                  123      0.09967585          0.52512156</span></span>
+<span><span class="co">#&gt; 6 2023-11-05                   69      0.05591572          0.58103728</span></span></code></pre></div>
+<p><strong>Incidence data:</strong></p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">incidence</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         week events</span></span>
+<span><span class="co">#&gt; 1 2023-10-01     45</span></span>
+<span><span class="co">#&gt; 2 2023-10-08     56</span></span>
+<span><span class="co">#&gt; 3 2023-10-15     48</span></span>
+<span><span class="co">#&gt; 4 2023-10-22     49</span></span>
+<span><span class="co">#&gt; 5 2023-10-29     42</span></span>
+<span><span class="co">#&gt; 6 2023-11-05     35</span></span></code></pre></div>
+<p><strong>Vaccine effectiveness data:</strong></p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ve_mock_data</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ve_mock_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         week        ve</span></span>
+<span><span class="co">#&gt; 1 2023-10-02 0.6344967</span></span>
+<span><span class="co">#&gt; 2 2023-10-09 0.6493827</span></span>
+<span><span class="co">#&gt; 3 2023-10-16 0.7369862</span></span>
+<span><span class="co">#&gt; 4 2023-10-23 0.6604973</span></span>
+<span><span class="co">#&gt; 5 2023-10-30 0.6610903</span></span>
+<span><span class="co">#&gt; 6 2023-11-06 0.7377342</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="nae">NAE<a class="anchor" aria-label="anchor" href="#nae"></a>
 </h3>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nae</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vaccine_impact.html">compute_events_averted_by_vaccination</a></span><span class="op">(</span></span>
-<span>  events <span class="op">=</span> <span class="va">incidence</span><span class="op">$</span><span class="va">events</span>,</span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">vaccine_effectiveness</span> <span class="op">&lt;-</span> <span class="va">ve_mock_data</span><span class="op">$</span><span class="va">ve</span></span>
+<span></span>
+<span><span class="va">nae</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compute_events_averted_by_vaccination.html">compute_events_averted_by_vaccination</a></span><span class="op">(</span></span>
+<span>  number_of_events <span class="op">=</span> <span class="va">incidence</span><span class="op">$</span><span class="va">events</span>,</span>
 <span>  cumulative_coverage <span class="op">=</span> <span class="va">coverage</span><span class="op">$</span><span class="va">cumulative_coverage</span>,</span>
 <span>  vaccine_effectiveness <span class="op">=</span> <span class="va">vaccine_effectiveness</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">nae</span></span>
-<span><span class="co">#&gt;  [1]  0.0000000  0.0000000  1.8404774  6.6095710 11.0488282  7.3471758</span></span>
-<span><span class="co">#&gt;  [7]  5.6472456 14.3417981  6.8704862  8.6083118  7.4468097  6.6467970</span></span>
-<span><span class="co">#&gt; [13]  1.7373137  3.3178507  4.7765819  3.5559705  0.8146056  0.6098621</span></span>
-<span><span class="co">#&gt; [19]  1.9862810  1.2618912  0.0000000  0.0000000  0.0000000  0.0000000</span></span>
-<span><span class="co">#&gt; [25]  0.0000000  0.8982954  0.0000000  0.0000000  0.0000000  0.0000000</span></span>
-<span><span class="co">#&gt; [31]  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000</span></span>
-<span><span class="co">#&gt; [37]  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000</span></span>
-<span><span class="co">#&gt; [43]  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000</span></span>
-<span><span class="co">#&gt; [49]  0.0000000  0.0000000  0.0000000  0.0000000</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nae</span>, type <span class="op">=</span> <span class="st">"l"</span>, xlab <span class="op">=</span> <span class="st">"Time"</span>, ylab <span class="op">=</span> <span class="st">"Events averted"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="vaccination_impact_estimates_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="nabe">NAbE<a class="anchor" aria-label="anchor" href="#nabe"></a>
 </h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nabe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vaccine_impact.html">compute_events_avertable_by_increasing_coverage</a></span><span class="op">(</span></span>
-<span>  events <span class="op">=</span> <span class="va">incidence</span><span class="op">$</span><span class="va">events</span>,</span>
-<span>  diff_cumulative_coverage <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/diff.html" class="external-link">diff</a></span><span class="op">(</span><span class="va">coverage</span><span class="op">$</span><span class="va">cumulative_coverage</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  target_coverage <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">coverage</span><span class="op">$</span><span class="va">cumulative_coverage</span><span class="op">)</span>,</span>
-<span>  alpha <span class="op">=</span> <span class="fl">0.1</span>, <span class="co"># 10% increase in final coverage</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">nabe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compute_events_avertable_by_increasing_coverage.html">compute_events_avertable_by_increasing_coverage</a></span><span class="op">(</span></span>
+<span>  number_of_events <span class="op">=</span> <span class="va">incidence</span><span class="op">$</span><span class="va">events</span>,</span>
+<span>  cumulative_coverage <span class="op">=</span> <span class="va">coverage</span><span class="op">$</span><span class="va">cumulative_coverage</span>,</span>
+<span>  vaccine_coverage_increase <span class="op">=</span> <span class="fl">0.1</span>, <span class="co"># 10% increase in final coverage</span></span>
 <span>  vaccine_effectiveness <span class="op">=</span> <span class="va">vaccine_effectiveness</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">nabe</span></span>
-<span><span class="co">#&gt;  [1] 0.000000000 0.000000000 2.083148922 4.199830115 4.256792132 1.599197939</span></span>
-<span><span class="co">#&gt;  [7] 0.965054815 1.103605549 0.512949020 0.373944572 0.231478586 0.130971005</span></span>
-<span><span class="co">#&gt; [13] 0.026780188 0.028099463 0.039313806 0.019047362 0.003860255 0.002157079</span></span>
-<span><span class="co">#&gt; [19] 0.004239641 0.002186660 0.000000000 0.000000000 0.000000000 0.000000000</span></span>
-<span><span class="co">#&gt; [25] 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</span></span>
-<span><span class="co">#&gt; [31] 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</span></span>
-<span><span class="co">#&gt; [37] 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</span></span>
-<span><span class="co">#&gt; [43] 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</span></span>
-<span><span class="co">#&gt; [49] 0.000000000 0.000000000 0.000000000 0.000000000</span></span></code></pre></div>
-<p>It is also possible to compute the number of avertable events for
-many values of alpha:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nabe_many_alphas</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vaccine_impact.html">compute_events_avertable_by_increasing_coverage_many_alphas</a></span><span class="op">(</span></span>
-<span>  events <span class="op">=</span> <span class="va">incidence</span><span class="op">$</span><span class="va">events</span>,</span>
-<span>  diff_cumulative_coverage <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/diff.html" class="external-link">diff</a></span><span class="op">(</span><span class="va">coverage</span><span class="op">$</span><span class="va">cumulative_coverage</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  target_coverage <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">coverage</span><span class="op">$</span><span class="va">cumulative_coverage</span><span class="op">)</span>,</span>
-<span>  alphas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span><span class="op">)</span>,</span>
-<span>  vaccine_effectiveness <span class="op">=</span> <span class="va">vaccine_effectiveness</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">nabe_many_alphas</span></span>
-<span><span class="co">#&gt;     alpha        nabe</span></span>
-<span><span class="co">#&gt; 1     0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 2     0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 3     0.1 2.083148922</span></span>
-<span><span class="co">#&gt; 4     0.1 4.199830115</span></span>
-<span><span class="co">#&gt; 5     0.1 4.256792132</span></span>
-<span><span class="co">#&gt; 6     0.1 1.599197939</span></span>
-<span><span class="co">#&gt; 7     0.1 0.965054815</span></span>
-<span><span class="co">#&gt; 8     0.1 1.103605549</span></span>
-<span><span class="co">#&gt; 9     0.1 0.512949020</span></span>
-<span><span class="co">#&gt; 10    0.1 0.373944572</span></span>
-<span><span class="co">#&gt; 11    0.1 0.231478586</span></span>
-<span><span class="co">#&gt; 12    0.1 0.130971005</span></span>
-<span><span class="co">#&gt; 13    0.1 0.026780188</span></span>
-<span><span class="co">#&gt; 14    0.1 0.028099463</span></span>
-<span><span class="co">#&gt; 15    0.1 0.039313806</span></span>
-<span><span class="co">#&gt; 16    0.1 0.019047362</span></span>
-<span><span class="co">#&gt; 17    0.1 0.003860255</span></span>
-<span><span class="co">#&gt; 18    0.1 0.002157079</span></span>
-<span><span class="co">#&gt; 19    0.1 0.004239641</span></span>
-<span><span class="co">#&gt; 20    0.1 0.002186660</span></span>
-<span><span class="co">#&gt; 21    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 22    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 23    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 24    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 25    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 26    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 27    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 28    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 29    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 30    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 31    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 32    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 33    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 34    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 35    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 36    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 37    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 38    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 39    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 40    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 41    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 42    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 43    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 44    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 45    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 46    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 47    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 48    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 49    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 50    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 51    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 52    0.1 0.000000000</span></span>
-<span><span class="co">#&gt; 53    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 54    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 55    0.2 2.328794786</span></span>
-<span><span class="co">#&gt; 56    0.2 4.713274483</span></span>
-<span><span class="co">#&gt; 57    0.2 4.775868536</span></span>
-<span><span class="co">#&gt; 58    0.2 1.791354938</span></span>
-<span><span class="co">#&gt; 59    0.2 1.081951110</span></span>
-<span><span class="co">#&gt; 60    0.2 1.233792948</span></span>
-<span><span class="co">#&gt; 61    0.2 0.572911786</span></span>
-<span><span class="co">#&gt; 62    0.2 0.417069331</span></span>
-<span><span class="co">#&gt; 63    0.2 0.257935547</span></span>
-<span><span class="co">#&gt; 64    0.2 0.145759021</span></span>
-<span><span class="co">#&gt; 65    0.2 0.029800101</span></span>
-<span><span class="co">#&gt; 66    0.2 0.031254153</span></span>
-<span><span class="co">#&gt; 67    0.2 0.043720203</span></span>
-<span><span class="co">#&gt; 68    0.2 0.021174939</span></span>
-<span><span class="co">#&gt; 69    0.2 0.004291013</span></span>
-<span><span class="co">#&gt; 70    0.2 0.002397329</span></span>
-<span><span class="co">#&gt; 71    0.2 0.004711822</span></span>
-<span><span class="co">#&gt; 72    0.2 0.002429917</span></span>
-<span><span class="co">#&gt; 73    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 74    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 75    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 76    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 77    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 78    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 79    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 80    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 81    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 82    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 83    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 84    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 85    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 86    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 87    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 88    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 89    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 90    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 91    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 92    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 93    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 94    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 95    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 96    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 97    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 98    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 99    0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 100   0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 101   0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 102   0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 103   0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 104   0.2 0.000000000</span></span>
-<span><span class="co">#&gt; 105   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 106   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 107   0.3 2.577470051</span></span>
-<span><span class="co">#&gt; 108   0.3 5.237121057</span></span>
-<span><span class="co">#&gt; 109   0.3 5.305163065</span></span>
-<span><span class="co">#&gt; 110   0.3 1.986666912</span></span>
-<span><span class="co">#&gt; 111   0.3 1.200974519</span></span>
-<span><span class="co">#&gt; 112   0.3 1.365596560</span></span>
-<span><span class="co">#&gt; 113   0.3 0.633502428</span></span>
-<span><span class="co">#&gt; 114   0.3 0.460522352</span></span>
-<span><span class="co">#&gt; 115   0.3 0.284544592</span></span>
-<span><span class="co">#&gt; 116   0.3 0.160595013</span></span>
-<span><span class="co">#&gt; 117   0.3 0.032829027</span></span>
-<span><span class="co">#&gt; 118   0.3 0.034415422</span></span>
-<span><span class="co">#&gt; 119   0.3 0.048134312</span></span>
-<span><span class="co">#&gt; 120   0.3 0.023304770</span></span>
-<span><span class="co">#&gt; 121   0.3 0.004722140</span></span>
-<span><span class="co">#&gt; 122   0.3 0.002637695</span></span>
-<span><span class="co">#&gt; 123   0.3 0.005184226</span></span>
-<span><span class="co">#&gt; 124   0.3 0.002673234</span></span>
-<span><span class="co">#&gt; 125   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 126   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 127   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 128   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 129   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 130   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 131   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 132   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 133   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 134   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 135   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 136   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 137   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 138   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 139   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 140   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 141   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 142   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 143   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 144   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 145   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 146   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 147   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 148   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 149   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 150   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 151   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 152   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 153   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 154   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 155   0.3 0.000000000</span></span>
-<span><span class="co">#&gt; 156   0.3 0.000000000</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nabe</span><span class="op">$</span><span class="va">new_vaccine_coverage</span>, type <span class="op">=</span> <span class="st">"l"</span>, xlab <span class="op">=</span> <span class="st">"Time"</span>, ylab <span class="op">=</span> <span class="st">"Vaccine coverage with 10% increase"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="vaccination_impact_estimates_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nabe</span><span class="op">$</span><span class="va">nabe</span>, type <span class="op">=</span> <span class="st">"l"</span>, xlab <span class="op">=</span> <span class="st">"Time"</span>, ylab <span class="op">=</span> <span class="st">"Events averted"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="vaccination_impact_estimates_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="nnv">NNV<a class="anchor" aria-label="anchor" href="#nnv"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">initial_pop_at_risk</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
-<span><span class="va">pop_at_risk</span> <span class="op">&lt;-</span> <span class="va">initial_pop_at_risk</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="va">incidence</span><span class="op">$</span><span class="va">events</span><span class="op">)</span></span>
+<div class="section level4">
+<h4 id="machado-et-al--method-1">Machado et al. method<a class="anchor" aria-label="anchor" href="#machado-et-al--method-1"></a>
+</h4>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sample_size</span> <span class="op">&lt;-</span> <span class="fl">1234</span></span>
 <span></span>
-<span><span class="va">nnv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vaccine_impact.html">compute_number_needed_to_vaccinate</a></span><span class="op">(</span></span>
-<span>  events <span class="op">=</span> <span class="va">incidence</span><span class="op">$</span><span class="va">events</span>,</span>
-<span>  events_averted <span class="op">=</span> <span class="va">nae</span>,</span>
-<span>  pop_at_risk <span class="op">=</span> <span class="va">pop_at_risk</span>,</span>
+<span><span class="va">nnv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compute_number_needed_to_vaccinate_machado.html">compute_number_needed_to_vaccinate_machado</a></span><span class="op">(</span></span>
+<span>  number_of_events <span class="op">=</span> <span class="va">incidence</span><span class="op">$</span><span class="va">events</span>,</span>
+<span>  number_of_events_averted <span class="op">=</span> <span class="va">nae</span>,</span>
+<span>  population_size <span class="op">=</span> <span class="va">sample_size</span>,</span>
 <span>  vaccine_effectiveness <span class="op">=</span> <span class="va">vaccine_effectiveness</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">nnv</span></span>
-<span><span class="co">#&gt;  [1]  51.28326  44.51670  37.08168  23.94800  21.99383  42.35913  68.40574</span></span>
-<span><span class="co">#&gt;  [8]  29.51987  67.68764  57.01188  68.45710  78.07731 305.59363 161.87950</span></span>
-<span><span class="co">#&gt; [15] 113.25044 152.61881 670.36609 898.66866 276.16938 434.53507        NA</span></span>
-<span><span class="co">#&gt; [22]        NA        NA        NA        NA 610.93487        NA        NA</span></span>
+<span><span class="co">#&gt;  [1]  41.12997  29.50475  26.92473  27.41407  29.01461  27.30541  30.97586</span></span>
+<span><span class="co">#&gt;  [8]  58.08314  60.58614  43.89116  93.86294 160.55538 137.54650 255.03374</span></span>
+<span><span class="co">#&gt; [15] 230.88015 812.75083 511.59870 314.74289 351.58960 661.23225        NA</span></span>
+<span><span class="co">#&gt; [22]        NA        NA        NA        NA        NA        NA        NA</span></span>
 <span><span class="co">#&gt; [29]        NA        NA        NA        NA        NA        NA        NA</span></span>
 <span><span class="co">#&gt; [36]        NA        NA        NA        NA        NA        NA        NA</span></span>
 <span><span class="co">#&gt; [43]        NA        NA        NA        NA        NA        NA        NA</span></span>
 <span><span class="co">#&gt; [50]        NA        NA        NA</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="tuite-and-fisman-method-1">Tuite and Fisman method<a class="anchor" aria-label="anchor" href="#tuite-and-fisman-method-1"></a>
+</h4>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">nnv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compute_number_needed_to_vaccinate_tuite_fisman.html">compute_number_needed_to_vaccinate_tuite_fisman</a></span><span class="op">(</span></span>
+<span>  number_of_vaccinated <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="va">coverage</span><span class="op">$</span><span class="va">number_of_vaccinated</span><span class="op">)</span>,</span>
+<span>  number_of_events_averted <span class="op">=</span> <span class="va">nae</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">nnv</span></span>
+<span><span class="co">#&gt;  [1]  41.12997  29.50475  26.92473  27.41407  29.01461  27.30541  30.97586</span></span>
+<span><span class="co">#&gt;  [8]  58.08314  60.58614  43.89116  93.86294 160.55538 137.54650 255.03374</span></span>
+<span><span class="co">#&gt; [15] 230.88015 812.75083 511.59870 314.74289 351.58960 661.23225        NA</span></span>
+<span><span class="co">#&gt; [22]        NA        NA        NA        NA        NA        NA        NA</span></span>
+<span><span class="co">#&gt; [29]        NA        NA        NA        NA        NA        NA        NA</span></span>
+<span><span class="co">#&gt; [36]        NA        NA        NA        NA        NA        NA        NA</span></span>
+<span><span class="co">#&gt; [43]        NA        NA        NA        NA        NA        NA        NA</span></span>
+<span><span class="co">#&gt; [50]        NA        NA        NA</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level3">
 <h3 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
@@ -447,6 +343,9 @@ McDonald SA, et al. Impact of influenza vaccination programmes among the
 elderly population on primary care, Portugal, Spain and the Netherlands:
 2015/16 to 2017/18 influenza seasons. Euro Surveill Bull Eur Sur Mal
 Transm Eur Commun Dis Bull. 2019 Nov;24(45):1900268.</p></li>
+<li><p>Tuite AR, Fisman DN. Number-needed-to-vaccinate calculations:
+fallacies associated with exclusion of transmission. Vaccine. 2013 Jan
+30;31(6):973-8.</p></li>
 </ul>
 </div>
 </div>
