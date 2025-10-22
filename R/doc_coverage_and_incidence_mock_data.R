@@ -1,11 +1,11 @@
 #' coverage_and_incidence_mock_data
 #'
-#' Description.
+#' Coverage and incidence mock data. Coverage values are computed considering a sample size of 1234 individuals.
 #'
-#' @format A data frame with  rows and  variables:
+#' @format A list with two data frames:
 #' \describe{
-#'   \item{ incidence_data }{  data.frame }
-#'   \item{ coverage_data }{  data.frame }
+#'   \item{ incidence_data }{  data.frame with weekly incidence data }
+#'   \item{ coverage_data }{  data.frame with weekly coverage data }
 #' }
-#' @source Source
+#' @source Simulated coverage and incidence data
 "coverage_and_incidence_mock_data"

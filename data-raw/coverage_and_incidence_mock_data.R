@@ -1,8 +1,9 @@
 ## code to prepare `coverage_and_incidence_mock_data` dataset goes here
+library(dplyr)
 source("data-raw/coverage_incidence_mock_data_funs.R")
 set.seed(123)
 n_weeks <- 52
-initial_N <- 1000
+initial_N <- 1234
 vaccination_data <- generate_weekly_number_of_vaccinated(
   n_weeks = n_weeks,
   initial_N = initial_N,
@@ -36,10 +37,31 @@ plot(coverage_data$start_of_week, coverage_data$cumulative_coverage)
 sum(coverage_data$number_of_vaccinated)
 sum(incidence_data$events)
 
+coverage_data <- coverage_data %>%
+  dplyr::rename(
+    week = start_of_week
+  ) %>%
+  dplyr::select(
+    -number_of_immune,
+    -coverage,
+    -cumulative_coverage
+  ) %>%
+  dplyr::mutate(
+    weekly_coverage = number_of_vaccinated / initial_N
+  ) %>%
+  dplyr::mutate(
+    cumulative_coverage = cumsum(weekly_coverage)
+  )
+
+incidence_data <- incidence_data %>%
+  dplyr::rename(
+    week = start_of_week
+  )
+
 coverage_and_incidence_mock_data <- list(
   "incidence_data" = incidence_data,
   "coverage_data" = coverage_data
 )
 
 usethis::use_data(coverage_and_incidence_mock_data, overwrite = TRUE)
-checkhelper::use_data_doc("coverage_and_incidence_mock_data")
+# checkhelper::use_data_doc("coverage_and_incidence_mock_data")
