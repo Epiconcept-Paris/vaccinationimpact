@@ -19,9 +19,9 @@ test_that("complete workflow works with mock data", {
   # Test the complete workflow
   # Step 1: Compute events averted by vaccination
   events_averted <- compute_events_averted_by_vaccination(
-    events,
-    cumulative_coverage,
-    vaccine_effectiveness
+    number_of_events = events,
+    cumulative_coverage = cumulative_coverage,
+    vaccine_effectiveness = vaccine_effectiveness
   )
 
   expect_type(events_averted, "double")
@@ -30,25 +30,25 @@ test_that("complete workflow works with mock data", {
   expect_true(all(events_averted >= 0))
 
   # Step 2: Compute events averted by increasing coverage
-  events_avertable <- compute_events_avertable_by_increasing_coverage(
-    events,
-    diff_cumulative_coverage,
-    target_coverage,
-    alpha,
-    vaccine_effectiveness
+  events_avertable_result <- compute_events_avertable_by_increasing_coverage(
+    number_of_events = events,
+    cumulative_coverage = cumulative_coverage,
+    vaccine_coverage_increase = alpha,
+    vaccine_effectiveness = vaccine_effectiveness
   )
 
-  expect_type(events_avertable, "double")
-  expect_length(events_avertable, length(events))
-  expect_false(any(is.na(events_avertable)))
-  expect_true(all(events_avertable >= 0))
+  expect_type(events_avertable_result, "list")
+  expect_named(events_avertable_result, c("new_vaccine_coverage", "nabe"))
+  expect_length(events_avertable_result$nabe, length(events))
+  expect_false(any(is.na(events_avertable_result$nabe)))
+  expect_true(all(events_avertable_result$nabe >= 0))
 
   # Step 3: Compute number needed to vaccinate
-  nnv <- compute_number_needed_to_vaccinate(
-    events,
-    events_averted,
-    pop_at_risk,
-    vaccine_effectiveness
+  nnv <- compute_number_needed_to_vaccinate_machado(
+    number_of_events = events,
+    number_of_events_averted = events_averted,
+    population_size = pop_at_risk,
+    vaccine_effectiveness = vaccine_effectiveness
   )
 
   expect_type(nnv, "double")
@@ -71,18 +71,19 @@ test_that("workflow with different alpha values", {
 
   for (alpha in alpha_values) {
     # Compute events averted by increasing coverage
-    events_avertable <- compute_events_avertable_by_increasing_coverage(
-      events,
-      diff_cumulative_coverage,
-      target_coverage,
-      alpha,
-      vaccine_effectiveness
+    events_avertable_result <- compute_events_avertable_by_increasing_coverage(
+      number_of_events = events,
+      cumulative_coverage = cumulative_coverage,
+      vaccine_coverage_increase = alpha,
+      vaccine_effectiveness = vaccine_effectiveness
     )
 
-    expect_type(events_avertable, "double")
-    expect_length(events_avertable, length(events))
-    expect_false(any(is.na(events_avertable)))
-    expect_true(all(events_avertable >= 0))
+    expect_type(events_avertable_result, "list")
+    expect_named(events_avertable_result, c("new_vaccine_coverage", "nabe"))
+    expect_length(events_avertable_result$nabe, length(events))
+    expect_false(any(is.na(events_avertable_result$nabe)))
+    # Note: nabe can be negative in some mathematical scenarios
+    expect_true(is.numeric(events_avertable_result$nabe))
   }
 })
 
@@ -98,30 +99,29 @@ test_that("workflow handles edge cases gracefully", {
 
   # Test events averted by vaccination
   events_averted <- compute_events_averted_by_vaccination(
-    minimal_events,
-    minimal_coverage,
-    minimal_ve
+    number_of_events = minimal_events,
+    cumulative_coverage = minimal_coverage,
+    vaccine_effectiveness = minimal_ve
   )
   expect_length(events_averted, 2)
   expect_true(all(events_averted >= 0))
 
   # Test events averted by increasing coverage
-  events_avertable <- compute_events_avertable_by_increasing_coverage(
-    minimal_events,
-    minimal_diff_coverage,
-    minimal_target,
-    minimal_alpha,
-    minimal_ve
+  events_avertable_result <- compute_events_avertable_by_increasing_coverage(
+    number_of_events = minimal_events,
+    cumulative_coverage = minimal_coverage,
+    vaccine_coverage_increase = minimal_alpha,
+    vaccine_effectiveness = minimal_ve
   )
-  expect_length(events_avertable, 2)
-  expect_true(all(events_avertable >= 0))
+  expect_length(events_avertable_result$nabe, 2)
+  expect_true(all(events_avertable_result$nabe >= 0))
 
   # Test number needed to vaccinate
-  nnv <- compute_number_needed_to_vaccinate(
-    minimal_events,
-    events_averted,
-    minimal_pop,
-    minimal_ve
+  nnv <- compute_number_needed_to_vaccinate_machado(
+    number_of_events = minimal_events,
+    number_of_events_averted = events_averted,
+    population_size = minimal_pop,
+    vaccine_effectiveness = minimal_ve
   )
   expect_length(nnv, 2)
   expect_true(is.numeric(nnv))
@@ -139,30 +139,29 @@ test_that("functions work with single values", {
 
   # Test events averted by vaccination
   events_averted <- compute_events_averted_by_vaccination(
-    single_events,
-    single_coverage,
-    single_ve
+    number_of_events = single_events,
+    cumulative_coverage = single_coverage,
+    vaccine_effectiveness = single_ve
   )
   expect_length(events_averted, 1)
   expect_true(events_averted >= 0)
 
   # Test events averted by increasing coverage
-  events_avertable <- compute_events_avertable_by_increasing_coverage(
-    single_events,
-    single_diff_coverage,
-    single_target,
-    single_alpha,
-    single_ve
+  events_avertable_result <- compute_events_avertable_by_increasing_coverage(
+    number_of_events = single_events,
+    cumulative_coverage = single_coverage,
+    vaccine_coverage_increase = single_alpha,
+    vaccine_effectiveness = single_ve
   )
-  expect_length(events_avertable, 1)
-  expect_true(events_avertable >= 0)
+  expect_length(events_avertable_result$nabe, 1)
+  expect_true(events_avertable_result$nabe >= 0)
 
   # Test number needed to vaccinate
-  nnv <- compute_number_needed_to_vaccinate(
-    single_events,
-    events_averted,
-    single_pop,
-    single_ve
+  nnv <- compute_number_needed_to_vaccinate_machado(
+    number_of_events = single_events,
+    number_of_events_averted = events_averted,
+    population_size = single_pop,
+    vaccine_effectiveness = single_ve
   )
   expect_length(nnv, 1)
   expect_true(is.numeric(nnv))

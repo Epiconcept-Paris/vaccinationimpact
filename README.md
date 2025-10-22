@@ -28,7 +28,8 @@ devtools::install_github("Epiconcept-Paris/vaccinationimpact")
 
 ## Example
 
-Some toy data is included in the package to illustrate the usage of the
+We use some toy data to illustrate the usage of the package: weekly
+coverage, incidence and vaccine effectiveness are provided in the
 package.
 
 ``` r
@@ -44,61 +45,80 @@ vaccine_effectiveness <- ve_mock_data$ve
 
 ``` r
 nae <- compute_events_averted_by_vaccination(
-  events = incidence$events,
+  number_of_events = incidence$events,
   cumulative_coverage = coverage$cumulative_coverage,
   vaccine_effectiveness = vaccine_effectiveness
 )
 nae
-#>  [1]  0.0000000  0.0000000  1.8404774  6.6095710 11.0488282  7.3471758
-#>  [7]  5.6472456 14.3417981  6.8704862  8.6083118  7.4468097  6.6467970
-#> [13]  1.7373137  3.3178507  4.7765819  3.5559705  0.8146056  0.6098621
-#> [19]  1.9862810  1.2618912  0.0000000  0.0000000  0.0000000  0.0000000
-#> [25]  0.0000000  0.8982954  0.0000000  0.0000000  0.0000000  0.0000000
-#> [31]  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000
-#> [37]  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000
-#> [43]  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000
-#> [49]  0.0000000  0.0000000  0.0000000  0.0000000
+#>  [1]  2.285438  8.405426 14.187702 19.150751 22.333578 26.258535 25.277745
+#>  [8] 14.479245 14.524775 20.687536  9.940025  5.904505  6.979458  3.795576
+#> [15]  4.214308  1.203321  1.917519  3.123184  2.798718  1.489643  0.000000
+#> [22]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
+#> [29]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
+#> [36]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
+#> [43]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
+#> [50]  0.000000  0.000000  0.000000
 ```
 
 ### NAbE
 
 ``` r
 nabe <- compute_events_avertable_by_increasing_coverage(
-  events = incidence$events,
-  diff_cumulative_coverage = c(0, diff(coverage$cumulative_coverage)),
-  target_coverage = max(coverage$cumulative_coverage),
-  alpha = 0.1, # 10% increase in final coverage
+  number_of_events = incidence$events,
+  cumulative_coverage = coverage$cumulative_coverage,
+  vaccine_coverage_increase = 0.1, # 10% increase in final coverage
   vaccine_effectiveness = vaccine_effectiveness
 )
-nabe
-#>  [1] 0.000000000 0.000000000 2.083148922 4.199830115 4.256792132 1.599197939
-#>  [7] 0.965054815 1.103605549 0.512949020 0.373944572 0.231478586 0.130971005
-#> [13] 0.026780188 0.028099463 0.039313806 0.019047362 0.003860255 0.002157079
-#> [19] 0.004239641 0.002186660 0.000000000 0.000000000 0.000000000 0.000000000
-#> [25] 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000
-#> [31] 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000
-#> [37] 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000
-#> [43] 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000
-#> [49] 0.000000000 0.000000000 0.000000000 0.000000000
+nabe$nabe
+#>  [1]  2.587606  9.637167 16.574011 22.651941 26.915232 32.599316 31.352360
+#>  [8] 17.750085 18.067588 25.959763 12.974325  7.574670  8.970289  4.844898
+#> [15]  5.299678  1.593502  2.451064  3.811307  3.564364  1.847972  0.000000
+#> [22]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
+#> [29]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
+#> [36]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
+#> [43]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
+#> [50]  0.000000  0.000000  0.000000
 ```
 
 ### NNV
 
-``` r
-initial_pop_at_risk <- 1000
-pop_at_risk <- initial_pop_at_risk - cumsum(incidence$events)
+NNV can be estimated using 2 methods: Machado et al. and Tuite and
+Fisman (see vignette for more details).
 
-nnv <- compute_number_needed_to_vaccinate(
-  events = incidence$events,
-  events_averted = nae,
-  pop_at_risk = pop_at_risk,
+#### Machado et al. method
+
+``` r
+sample_size <- 1234
+
+nnv_machado <- compute_number_needed_to_vaccinate_machado(
+  number_of_events = incidence$events,
+  number_of_events_averted = nae,
+  population_size = sample_size,
   vaccine_effectiveness = vaccine_effectiveness
 )
-nnv
-#>  [1]  51.28326  44.51670  37.08168  23.94800  21.99383  42.35913  68.40574
-#>  [8]  29.51987  67.68764  57.01188  68.45710  78.07731 305.59363 161.87950
-#> [15] 113.25044 152.61881 670.36609 898.66866 276.16938 434.53507        NA
-#> [22]        NA        NA        NA        NA 610.93487        NA        NA
+nnv_machado
+#>  [1]  41.12997  29.50475  26.92473  27.41407  29.01461  27.30541  30.97586
+#>  [8]  58.08314  60.58614  43.89116  93.86294 160.55538 137.54650 255.03374
+#> [15] 230.88015 812.75083 511.59870 314.74289 351.58960 661.23225        NA
+#> [22]        NA        NA        NA        NA        NA        NA        NA
+#> [29]        NA        NA        NA        NA        NA        NA        NA
+#> [36]        NA        NA        NA        NA        NA        NA        NA
+#> [43]        NA        NA        NA        NA        NA        NA        NA
+#> [50]        NA        NA        NA
+```
+
+#### Tuite and Fisman method
+
+``` r
+nnv_tuite_fisman <- compute_number_needed_to_vaccinate_tuite_fisman(
+  number_of_vaccinated = cumsum(coverage$number_of_vaccinated),
+  number_of_events_averted = nae
+)
+nnv_tuite_fisman
+#>  [1]  41.12997  29.50475  26.92473  27.41407  29.01461  27.30541  30.97586
+#>  [8]  58.08314  60.58614  43.89116  93.86294 160.55538 137.54650 255.03374
+#> [15] 230.88015 812.75083 511.59870 314.74289 351.58960 661.23225        NA
+#> [22]        NA        NA        NA        NA        NA        NA        NA
 #> [29]        NA        NA        NA        NA        NA        NA        NA
 #> [36]        NA        NA        NA        NA        NA        NA        NA
 #> [43]        NA        NA        NA        NA        NA        NA        NA

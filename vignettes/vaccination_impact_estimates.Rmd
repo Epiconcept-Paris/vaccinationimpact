@@ -84,7 +84,9 @@ The number needed to vaccinate at time $t$ is calculated as:
 
 $$NNV_t = \frac{v_t}{NAE_t}$$
 
-where $v_t$: Number of vaccinated individuals at time $t$
+with:
+
+- $v_t$: Number of vaccinated individuals at time $t$
 
 # Example
 
@@ -98,7 +100,7 @@ incidence <- coverage_and_incidence_mock_data$incidence_data
 
 **Coverage data:**
 
-The coverage values are computed considering a sample size of 1000 individuals.
+The coverage values are computed considering a sample size of 1234 individuals.
 
 ```{r}
 head(coverage)
@@ -136,7 +138,7 @@ plot(nae, type = "l", xlab = "Time", ylab = "Events averted")
 nabe <- compute_events_avertable_by_increasing_coverage(
   number_of_events = incidence$events,
   cumulative_coverage = coverage$cumulative_coverage,
-  vaccine_coverage_increase = 0.2, # 10% increase in final coverage
+  vaccine_coverage_increase = 0.1, # 10% increase in final coverage
   vaccine_effectiveness = vaccine_effectiveness
 )
 ```
@@ -154,13 +156,12 @@ plot(nabe$nabe, type = "l", xlab = "Time", ylab = "Events averted")
 ### Machado et al. method
 
 ```{r}
-initial_pop_at_risk <- 1000
-pop_at_risk <- initial_pop_at_risk - cumsum(incidence$events)
+sample_size <- 1234
 
 nnv <- compute_number_needed_to_vaccinate_machado(
   number_of_events = incidence$events,
   number_of_events_averted = nae,
-  pop_at_risk = pop_at_risk,
+  population_size = sample_size,
   vaccine_effectiveness = vaccine_effectiveness
 )
 nnv
@@ -170,7 +171,7 @@ nnv
 
 ```{r}
 nnv <- compute_number_needed_to_vaccinate_tuite_fisman(
-  number_of_vaccinated = coverage$number_of_vaccinated,
+  number_of_vaccinated = cumsum(coverage$number_of_vaccinated),
   number_of_events_averted = nae
 )
 nnv

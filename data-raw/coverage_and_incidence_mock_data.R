@@ -3,7 +3,7 @@ library(dplyr)
 source("data-raw/coverage_incidence_mock_data_funs.R")
 set.seed(123)
 n_weeks <- 52
-initial_N <- 1000
+initial_N <- 1234
 vaccination_data <- generate_weekly_number_of_vaccinated(
   n_weeks = n_weeks,
   initial_N = initial_N,

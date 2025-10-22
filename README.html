@@ -622,8 +622,9 @@ of vaccination campaigns using the following estimates:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;Epiconcept-Paris/vaccinationimpact&quot;</span>)</span></code></pre></div>
 <h2 id="example">Example</h2>
-<p>Some toy data is included in the package to illustrate the usage of
-the package.</p>
+<p>We use some toy data to illustrate the usage of the package: weekly
+coverage, incidence and vaccine effectiveness are provided in the
+package.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(vaccinationimpact)</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">data</span>(coverage_and_incidence_mock_data)</span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">data</span>(ve_mock_data)</span>
@@ -632,57 +633,70 @@ the package.</p>
 <span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>vaccine_effectiveness <span class="ot">&lt;-</span> ve_mock_data<span class="sc">$</span>ve</span></code></pre></div>
 <h3 id="nae">NAE</h3>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>nae <span class="ot">&lt;-</span> <span class="fu">compute_events_averted_by_vaccination</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="at">events =</span> incidence<span class="sc">$</span>events,</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="at">number_of_events =</span> incidence<span class="sc">$</span>events,</span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="at">cumulative_coverage =</span> coverage<span class="sc">$</span>cumulative_coverage,</span>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="at">vaccine_effectiveness =</span> vaccine_effectiveness</span>
 <span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>)</span>
 <span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>nae</span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt;  [1]  0.0000000  0.0000000  1.8404774  6.6095710 11.0488282  7.3471758</span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt;  [7]  5.6472456 14.3417981  6.8704862  8.6083118  7.4468097  6.6467970</span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; [13]  1.7373137  3.3178507  4.7765819  3.5559705  0.8146056  0.6098621</span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; [19]  1.9862810  1.2618912  0.0000000  0.0000000  0.0000000  0.0000000</span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; [25]  0.0000000  0.8982954  0.0000000  0.0000000  0.0000000  0.0000000</span></span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; [31]  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000</span></span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; [37]  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000</span></span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; [43]  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000</span></span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt; [49]  0.0000000  0.0000000  0.0000000  0.0000000</span></span></code></pre></div>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt;  [1]  2.285438  8.405426 14.187702 19.150751 22.333578 26.258535 25.277745</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt;  [8] 14.479245 14.524775 20.687536  9.940025  5.904505  6.979458  3.795576</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; [15]  4.214308  1.203321  1.917519  3.123184  2.798718  1.489643  0.000000</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; [22]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; [29]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; [36]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; [43]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; [50]  0.000000  0.000000  0.000000</span></span></code></pre></div>
 <h3 id="nabe">NAbE</h3>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>nabe <span class="ot">&lt;-</span> <span class="fu">compute_events_avertable_by_increasing_coverage</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="at">events =</span> incidence<span class="sc">$</span>events,</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="at">diff_cumulative_coverage =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">diff</span>(coverage<span class="sc">$</span>cumulative_coverage)),</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="at">target_coverage =</span> <span class="fu">max</span>(coverage<span class="sc">$</span>cumulative_coverage),</span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="co"># 10% increase in final coverage</span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  <span class="at">vaccine_effectiveness =</span> vaccine_effectiveness</span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>)</span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>nabe</span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt;  [1] 0.000000000 0.000000000 2.083148922 4.199830115 4.256792132 1.599197939</span></span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt;  [7] 0.965054815 1.103605549 0.512949020 0.373944572 0.231478586 0.130971005</span></span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; [13] 0.026780188 0.028099463 0.039313806 0.019047362 0.003860255 0.002157079</span></span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; [19] 0.004239641 0.002186660 0.000000000 0.000000000 0.000000000 0.000000000</span></span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; [25] 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</span></span>
-<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co">#&gt; [31] 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</span></span>
-<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="co">#&gt; [37] 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</span></span>
-<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co">#&gt; [43] 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000 0.000000000</span></span>
-<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="co">#&gt; [49] 0.000000000 0.000000000 0.000000000 0.000000000</span></span></code></pre></div>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="at">number_of_events =</span> incidence<span class="sc">$</span>events,</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="at">cumulative_coverage =</span> coverage<span class="sc">$</span>cumulative_coverage,</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="at">vaccine_coverage_increase =</span> <span class="fl">0.1</span>, <span class="co"># 10% increase in final coverage</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="at">vaccine_effectiveness =</span> vaccine_effectiveness</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>)</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>nabe<span class="sc">$</span>nabe</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt;  [1]  2.587606  9.637167 16.574011 22.651941 26.915232 32.599316 31.352360</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt;  [8] 17.750085 18.067588 25.959763 12.974325  7.574670  8.970289  4.844898</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; [15]  5.299678  1.593502  2.451064  3.811307  3.564364  1.847972  0.000000</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; [22]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; [29]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; [36]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co">#&gt; [43]  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="co">#&gt; [50]  0.000000  0.000000  0.000000</span></span></code></pre></div>
 <h3 id="nnv">NNV</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>initial_pop_at_risk <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>pop_at_risk <span class="ot">&lt;-</span> initial_pop_at_risk <span class="sc">-</span> <span class="fu">cumsum</span>(incidence<span class="sc">$</span>events)</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>nnv <span class="ot">&lt;-</span> <span class="fu">compute_number_needed_to_vaccinate</span>(</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="at">events =</span> incidence<span class="sc">$</span>events,</span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  <span class="at">events_averted =</span> nae,</span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>  <span class="at">pop_at_risk =</span> pop_at_risk,</span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>  <span class="at">vaccine_effectiveness =</span> vaccine_effectiveness</span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>)</span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>nnv</span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt;  [1]  51.28326  44.51670  37.08168  23.94800  21.99383  42.35913  68.40574</span></span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt;  [8]  29.51987  67.68764  57.01188  68.45710  78.07731 305.59363 161.87950</span></span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; [15] 113.25044 152.61881 670.36609 898.66866 276.16938 434.53507        NA</span></span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; [22]        NA        NA        NA        NA 610.93487        NA        NA</span></span>
-<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt; [29]        NA        NA        NA        NA        NA        NA        NA</span></span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; [36]        NA        NA        NA        NA        NA        NA        NA</span></span>
-<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt; [43]        NA        NA        NA        NA        NA        NA        NA</span></span>
-<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt; [50]        NA        NA        NA</span></span></code></pre></div>
+<p>NNV can be estimated using 2 methods: Machado et al. and Tuite and
+Fisman (see vignette for more details).</p>
+<h4 id="machado-et-al-method">Machado et al. method</h4>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>sample_size <span class="ot">&lt;-</span> <span class="dv">1234</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>nnv_machado <span class="ot">&lt;-</span> <span class="fu">compute_number_needed_to_vaccinate_machado</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="at">number_of_events =</span> incidence<span class="sc">$</span>events,</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="at">number_of_events_averted =</span> nae,</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  <span class="at">population_size =</span> sample_size,</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>  <span class="at">vaccine_effectiveness =</span> vaccine_effectiveness</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>)</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>nnv_machado</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt;  [1]  41.12997  29.50475  26.92473  27.41407  29.01461  27.30541  30.97586</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt;  [8]  58.08314  60.58614  43.89116  93.86294 160.55538 137.54650 255.03374</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; [15] 230.88015 812.75083 511.59870 314.74289 351.58960 661.23225        NA</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; [22]        NA        NA        NA        NA        NA        NA        NA</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; [29]        NA        NA        NA        NA        NA        NA        NA</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt; [36]        NA        NA        NA        NA        NA        NA        NA</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; [43]        NA        NA        NA        NA        NA        NA        NA</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt; [50]        NA        NA        NA</span></span></code></pre></div>
+<h4 id="tuite-and-fisman-method">Tuite and Fisman method</h4>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>nnv_tuite_fisman <span class="ot">&lt;-</span> <span class="fu">compute_number_needed_to_vaccinate_tuite_fisman</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="at">number_of_vaccinated =</span> <span class="fu">cumsum</span>(coverage<span class="sc">$</span>number_of_vaccinated),</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="at">number_of_events_averted =</span> nae</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>)</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>nnv_tuite_fisman</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt;  [1]  41.12997  29.50475  26.92473  27.41407  29.01461  27.30541  30.97586</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt;  [8]  58.08314  60.58614  43.89116  93.86294 160.55538 137.54650 255.03374</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; [15] 230.88015 812.75083 511.59870 314.74289 351.58960 661.23225        NA</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; [22]        NA        NA        NA        NA        NA        NA        NA</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; [29]        NA        NA        NA        NA        NA        NA        NA</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt; [36]        NA        NA        NA        NA        NA        NA        NA</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt; [43]        NA        NA        NA        NA        NA        NA        NA</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt; [50]        NA        NA        NA</span></span></code></pre></div>
 <p>More information can be found in the <a href="https://epiconcept-paris.github.io/vaccinationimpact/articles/vaccination_impact_estimates.html">vignette</a>.</p>
 
 </body>
