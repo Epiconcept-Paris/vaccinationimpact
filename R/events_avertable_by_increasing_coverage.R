@@ -1,11 +1,9 @@
 #' Compute events averted by increasing the final vaccine coverage 
 #' @param vaccine_coverage_increase percentage increase in final vaccine coverage (between 0 and 1)
-#' @inheritParams compute_events_averted_by_vaccination
-#' @return a list with the new vaccine coverage and the estimated number of events averted
+#' @return a list with the new vaccine coverage ("new_vaccine_coverage") and the estimated number of events averted ("nabe")
 #' @rdname vaccine_impact
 #' @export
 #' @examples
-
 compute_events_avertable_by_increasing_coverage <- function(
   number_of_events,
   cumulative_coverage,
@@ -17,10 +15,10 @@ compute_events_avertable_by_increasing_coverage <- function(
     stop("vaccine_coverage_increase must be between 0 and 1")
   }
 
-  diff_cumulative_coverage <- c(0, diff(cumulative_coverage))
+  diff_cumulative_coverage <- cumsum(c(0, diff(cumulative_coverage)))
   target_coverage <- max(cumulative_coverage)
 
-  new_VC <- compute_VC_alpha(
+  new_VC <- compute_new_vaccine_coverage(
     diff_cumulative_coverage,
     target_coverage,
     vaccine_coverage_increase
@@ -39,7 +37,6 @@ compute_events_avertable_by_increasing_coverage <- function(
   )
 }
 
-
 #' Compute vaccine coverage for a given value of alpha
 #' (percent of increase in final vaccine coverage)
 #' @param diff_cumulative_coverage Vector of difference in cumulative coverage
@@ -48,7 +45,7 @@ compute_events_avertable_by_increasing_coverage <- function(
 #' @param alpha percent of increase in final vaccine coverage
 #' @return The vaccine coverage
 #' @noRd
-compute_VC_alpha <- function(diff_cumulative_coverage, target_coverage, alpha) {
+compute_new_vaccine_coverage <- function(diff_cumulative_coverage, target_coverage, alpha) {
   if (length(alpha) != 1) {
     stop("alpha must be a single value")
   }

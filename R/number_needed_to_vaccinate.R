@@ -1,5 +1,6 @@
 #' Compute the number of individuals needed to vaccinate to prevent
 #' one event according to Machado et al. method
+#' @param number_of_events_averted number of events averted
 #' @param pop_at_risk population at risk
 #' @inheritParams compute_events_averted_by_vaccination
 #' @return The number of individuals needed to vaccinate to avert
@@ -26,6 +27,7 @@ compute_number_needed_to_vaccinate_machado <- function(
 #' @return The number of individuals needed to vaccinate to avert
 #' one event
 #' @export
+#' @param number_of_vaccinated number of vaccinated individuals
 #' @rdname vaccine_impact
 #' @details The number of individuals needed to vaccinate to prevent one event is calculated as described by Tuite and Fisman (2013) <doi:10.1016/j.vaccine.2012.11.097>.
 #' @examples

@@ -88,7 +88,7 @@ where $v_t$: Number of vaccinated individuals at time $t$
 
 # Example
 
-We use some toy data to illustrate the usage of the package.
+We use some toy data to illustrate the usage of the package: weekly coverage, incidence and vaccine effectiveness are provided in the package.
 
 ```{r example}
 data(coverage_and_incidence_mock_data)
@@ -113,6 +113,7 @@ head(incidence)
 **Vaccine effectiveness data:**
 
 ```{r}
+data(ve_mock_data)
 head(ve_mock_data)
 ```
 
@@ -126,7 +127,7 @@ nae <- compute_events_averted_by_vaccination(
   cumulative_coverage = coverage$cumulative_coverage,
   vaccine_effectiveness = vaccine_effectiveness
 )
-nae
+plot(nae, type = "l", xlab = "Time", ylab = "Events averted")
 ```
 
 ## NAbE
@@ -135,10 +136,17 @@ nae
 nabe <- compute_events_avertable_by_increasing_coverage(
   number_of_events = incidence$events,
   cumulative_coverage = coverage$cumulative_coverage,
-  vaccine_coverage_increase = 0.1, # 10% increase in final coverage
+  vaccine_coverage_increase = 0.2, # 10% increase in final coverage
   vaccine_effectiveness = vaccine_effectiveness
 )
-nabe$new_vaccine_coverage %>% sum()
+```
+
+```{r}
+plot(nabe$new_vaccine_coverage, type = "l", xlab = "Time", ylab = "Vaccine coverage with 10% increase")
+```
+
+```{r}
+plot(nabe$nabe, type = "l", xlab = "Time", ylab = "Events averted")
 ```
 
 ## NNV

@@ -17,7 +17,7 @@ compute_events_avertable_by_increasing_coverage(
 
 compute_events_averted_by_vaccination(
   number_of_events,
-  coverage,
+  cumulative_coverage,
   vaccine_effectiveness
 )
 
@@ -36,16 +36,20 @@ compute_number_needed_to_vaccinate_tuite_fisman(
 \arguments{
 \item{number_of_events}{number of events}
 
+\item{cumulative_coverage}{cumulative vaccination coverage}
+
 \item{vaccine_coverage_increase}{percentage increase in final vaccine coverage (between 0 and 1)}
 
 \item{vaccine_effectiveness}{vaccine effectiveness}
 
-\item{coverage}{cumulative coverage}
+\item{number_of_events_averted}{number of events averted}
 
 \item{pop_at_risk}{population at risk}
+
+\item{number_of_vaccinated}{number of vaccinated individuals}
 }
 \value{
-estimated number of events averted
+a list with the new vaccine coverage ("new_vaccine_coverage") and the estimated number of events averted ("nabe")
 
 estimated number of events averted
 
@@ -67,6 +71,8 @@ Compute the number of individuals needed to vaccinate to prevent
 one event according to Tuite and Fisman method
 }
 \details{
+The number of events averted by vaccination is calculated as described by Machado et al. (2019) \url{doi:10.2807/1560-7917.ES.2019.24.45.1900268}.
+
 The number of individuals needed to vaccinate to prevent one event is calculated as described by Machado et al. (2019) \url{doi:10.2807/1560-7917.ES.2019.24.45.1900268}.
 
 The number of individuals needed to vaccinate to prevent one event is calculated as described by Tuite and Fisman (2013) \url{doi:10.1016/j.vaccine.2012.11.097}.
