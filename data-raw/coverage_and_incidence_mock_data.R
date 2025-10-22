@@ -37,26 +37,26 @@ plot(coverage_data$start_of_week, coverage_data$cumulative_coverage)
 sum(coverage_data$number_of_vaccinated)
 sum(incidence_data$events)
 
-coverage_data <- coverage_data  %>% 
-dplyr::rename(
-  week = start_of_week
-) %>% 
- dplyr::select(
-  -number_of_immune,
-  -coverage,
-  -cumulative_coverage
-) %>% 
-dplyr::mutate(
-  weekly_coverage = number_of_vaccinated / initial_N  
-) %>% 
-dplyr::mutate(
-  cumulative_coverage = cumsum(weekly_coverage)
-)
+coverage_data <- coverage_data %>%
+  dplyr::rename(
+    week = start_of_week
+  ) %>%
+  dplyr::select(
+    -number_of_immune,
+    -coverage,
+    -cumulative_coverage
+  ) %>%
+  dplyr::mutate(
+    weekly_coverage = number_of_vaccinated / initial_N
+  ) %>%
+  dplyr::mutate(
+    cumulative_coverage = cumsum(weekly_coverage)
+  )
 
-incidence_data <- incidence_data  %>% 
-dplyr::rename(
-  week = start_of_week
-)
+incidence_data <- incidence_data %>%
+  dplyr::rename(
+    week = start_of_week
+  )
 
 coverage_and_incidence_mock_data <- list(
   "incidence_data" = incidence_data,

@@ -33,7 +33,9 @@ test_that("compute_events_avertable_by_increasing_coverage works with valid inpu
   expect_length(result$new_vaccine_coverage, length(test_events))
 
   # Check that new_vaccine_coverage is between 0 and 1
-  expect_true(all(result$new_vaccine_coverage >= 0 & result$new_vaccine_coverage <= 1))
+  expect_true(all(
+    result$new_vaccine_coverage >= 0 & result$new_vaccine_coverage <= 1
+  ))
 })
 
 test_that("compute_events_avertable_by_increasing_coverage validates vaccine_coverage_increase", {
@@ -142,4 +144,3 @@ test_that("compute_events_avertable_by_increasing_coverage mathematical properti
 
   expect_equal(result_more$nabe, result_original$nabe * 2)
 })
-

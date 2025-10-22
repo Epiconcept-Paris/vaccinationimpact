@@ -25,7 +25,7 @@ compute_events_averted_by_vaccination <- function(
 ) {
   return(
     number_of_events *
-    ((cumulative_coverage * vaccine_effectiveness) /
-      (1 - (cumulative_coverage * vaccine_effectiveness)))
+      ((cumulative_coverage * vaccine_effectiveness) /
+        (1 - (cumulative_coverage * vaccine_effectiveness)))
   )
 }

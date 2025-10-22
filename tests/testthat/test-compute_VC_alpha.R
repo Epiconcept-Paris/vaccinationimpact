@@ -55,12 +55,20 @@ test_that("compute_new_vaccine_coverage validates alpha parameter", {
 
   # Test that alpha must be between 0 and 1
   expect_error(
-    compute_new_vaccine_coverage(test_diff_cumulative_coverage, test_target_coverage, -0.1),
+    compute_new_vaccine_coverage(
+      test_diff_cumulative_coverage,
+      test_target_coverage,
+      -0.1
+    ),
     "alpha must be between 0 and 1"
   )
 
   expect_error(
-    compute_new_vaccine_coverage(test_diff_cumulative_coverage, test_target_coverage, 1.1),
+    compute_new_vaccine_coverage(
+      test_diff_cumulative_coverage,
+      test_target_coverage,
+      1.1
+    ),
     "alpha must be between 0 and 1"
   )
 })
