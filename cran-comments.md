@@ -1,3 +1,14 @@
+## 2025-10-29
+
+New submission based on review.
+
+- Edited doi in DESCRIPTION file
+
+Other:
+
+Changed licence to be proprietary.
+
+
 ## 2025-10-16
 
 New submission based on review.
