@@ -38,7 +38,7 @@ nabe <- compute_events_avertable_by_increasing_coverage(
   vaccine_coverage_increase = 0.1, # 10\% increase in final coverage
   vaccine_effectiveness = vaccine_effectiveness
 )
-plot(nabe$new_vaccine_coverage, type = "l", 
+plot(nabe$new_vaccine_coverage, type = "l",
 xlab = "Time", ylab = "Vaccine coverage with 10\% increase")
 plot(nabe$nabe, type = "l", xlab = "Time", ylab = "Events averted")
 }

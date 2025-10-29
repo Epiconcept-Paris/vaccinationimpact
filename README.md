@@ -127,3 +127,8 @@ nnv_tuite_fisman
 
 More information can be found in the
 [vignette](https://epiconcept-paris.github.io/vaccinationimpact/articles/vaccination_impact_estimates.html).
+
+## Note
+
+This package was developed to conduct an impact study on COVID-19
+vaccination as part of the VEBIS project funded by the ECDC.
