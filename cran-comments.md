@@ -6,7 +6,7 @@ New submission based on review.
 
 Other:
 
-Changed licence to be proprietary.
+Changed licence to be MIT and Epiconcept as copyright holder.
 
 
 ## 2025-10-16
