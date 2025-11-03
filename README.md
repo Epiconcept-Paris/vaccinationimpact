@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/Epiconcept-Paris/vaccinationimpact/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Epiconcept-Paris/vaccinationimpact/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/Epiconcept-Paris/vaccinationimpact/actions/workflows/R-CMD-check/badge.svg)](https://github.com/Epiconcept-Paris/vaccinationimpact/actions/)
 <!-- badges: end -->
 
 The goal of `{vaccinationimpact}` is to assess the impact of vaccination
@@ -17,6 +17,12 @@ campaigns using the following estimates:
 - Number needed to vaccinate (NNV) to prevent one event
 
 ## Installation
+
+You can install the package from CRAN with:
+
+``` r
+install.packages("vaccinationimpact")
+```
 
 You can install the development version of vaccinationimpact from
 [GitHub](https://github.com/) with:

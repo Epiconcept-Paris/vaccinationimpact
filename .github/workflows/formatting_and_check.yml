@@ -3,7 +3,7 @@ on:
   pull_request:
     branches: [main]
 
-name: formatting.yml
+name: R-CMD-check
 
 permissions:
   contents: write
