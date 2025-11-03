@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/Epiconcept-Paris/vaccinationimpact/actions/workflows/R-CMD-check/badge.svg)](https://github.com/Epiconcept-Paris/vaccinationimpact/actions/)
+[![R-CMD-check](https://github.com/Epiconcept-Paris/vaccinationimpact/actions/workflows/formatting_and_check.yml/badge.svg)](https://github.com/Epiconcept-Paris/vaccinationimpact/actions/)
 <!-- badges: end -->
 
 The goal of `{vaccinationimpact}` is to assess the impact of vaccination
