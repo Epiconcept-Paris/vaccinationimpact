@@ -66,8 +66,11 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of vaccinationimpact from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>You can install the package from CRAN with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"vaccinationimpact"</span><span class="op">)</span></span></code></pre></div>
+<p>You can install the development version of vaccinationimpact from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"Epiconcept-Paris/vaccinationimpact"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -75,7 +78,7 @@
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <p>We use some toy data to illustrate the usage of the package: weekly coverage, incidence and vaccine effectiveness are provided in the package.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Epiconcept-Paris/vaccinationimpact/" class="external-link">vaccinationimpact</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">coverage_and_incidence_mock_data</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ve_mock_data</span><span class="op">)</span></span>
@@ -85,7 +88,7 @@
 <div class="section level3">
 <h3 id="nae">NAE<a class="anchor" aria-label="anchor" href="#nae"></a>
 </h3>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nae</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compute_events_averted_by_vaccination.html">compute_events_averted_by_vaccination</a></span><span class="op">(</span></span>
 <span>  number_of_events <span class="op">=</span> <span class="va">incidence</span><span class="op">$</span><span class="va">events</span>,</span>
 <span>  cumulative_coverage <span class="op">=</span> <span class="va">coverage</span><span class="op">$</span><span class="va">cumulative_coverage</span>,</span>
@@ -104,7 +107,7 @@
 <div class="section level3">
 <h3 id="nabe">NAbE<a class="anchor" aria-label="anchor" href="#nabe"></a>
 </h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nabe</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compute_events_avertable_by_increasing_coverage.html">compute_events_avertable_by_increasing_coverage</a></span><span class="op">(</span></span>
 <span>  number_of_events <span class="op">=</span> <span class="va">incidence</span><span class="op">$</span><span class="va">events</span>,</span>
 <span>  cumulative_coverage <span class="op">=</span> <span class="va">coverage</span><span class="op">$</span><span class="va">cumulative_coverage</span>,</span>
@@ -128,7 +131,7 @@
 <div class="section level4">
 <h4 id="machado-et-al-method">Machado et al. method<a class="anchor" aria-label="anchor" href="#machado-et-al-method"></a>
 </h4>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sample_size</span> <span class="op">&lt;-</span> <span class="fl">1234</span></span>
 <span></span>
 <span><span class="va">nnv_machado</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compute_number_needed_to_vaccinate_machado.html">compute_number_needed_to_vaccinate_machado</a></span><span class="op">(</span></span>
@@ -150,7 +153,7 @@
 <div class="section level4">
 <h4 id="tuite-and-fisman-method">Tuite and Fisman method<a class="anchor" aria-label="anchor" href="#tuite-and-fisman-method"></a>
 </h4>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nnv_tuite_fisman</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compute_number_needed_to_vaccinate_tuite_fisman.html">compute_number_needed_to_vaccinate_tuite_fisman</a></span><span class="op">(</span></span>
 <span>  number_of_vaccinated <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="va">coverage</span><span class="op">$</span><span class="va">number_of_vaccinated</span><span class="op">)</span>,</span>
 <span>  number_of_events_averted <span class="op">=</span> <span class="va">nae</span></span>
@@ -177,6 +180,7 @@
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=vaccinationimpact" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/Epiconcept-Paris/vaccinationimpact/" class="external-link">Browse source code</a></li>
 </ul>
 </div>
@@ -210,7 +214,7 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/Epiconcept-Paris/vaccinationimpact/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/Epiconcept-Paris/vaccinationimpact/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/Epiconcept-Paris/vaccinationimpact/actions/" class="external-link"><img src="https://github.com/Epiconcept-Paris/vaccinationimpact/actions/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 
