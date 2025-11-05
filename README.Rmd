@@ -28,6 +28,12 @@ The goal of `{vaccinationimpact}` is to assess the impact of vaccination campaig
 
 ## Installation
 
+You can install the package from CRAN with: 
+
+``` r
+install.packages("vaccinationimpact")
+```
+
 You can install the development version of vaccinationimpact from [GitHub](https://github.com/) with:
 
 ``` r

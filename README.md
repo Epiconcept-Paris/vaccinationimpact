@@ -4,7 +4,6 @@
 # vaccinationimpact
 
 <!-- badges: start -->
-
 [![R-CMD-check](https://github.com/Epiconcept-Paris/vaccinationimpact/actions/workflows/formatting_and_check.yml/badge.svg)](https://github.com/Epiconcept-Paris/vaccinationimpact/actions/)[![](https://cranlogs.r-pkg.org/badges/vaccinationimpact)](https://epiconcept-paris.github.io/vaccinationimpact/)
 <!-- badges: end -->
 
@@ -17,6 +16,12 @@ campaigns using the following estimates:
 - Number needed to vaccinate (NNV) to prevent one event
 
 ## Installation
+
+You can install the package from CRAN with:
+
+``` r
+install.packages("vaccinationimpact")
+```
 
 You can install the development version of vaccinationimpact from
 [GitHub](https://github.com/) with:
