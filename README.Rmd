@@ -17,7 +17,13 @@ knitr::opts_chunk$set(
 # vaccinationimpact
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/Epiconcept-Paris/vaccinationimpact/actions/workflows/formatting_and_check.yml/badge.svg)](https://github.com/Epiconcept-Paris/vaccinationimpact/actions/)[![](https://cranlogs.r-pkg.org/badges/vaccinationimpact)](https://epiconcept-paris.github.io/vaccinationimpact/)[![](https://www.r-pkg.org/badges/version/vaccinationimpact)](https://epiconcept-paris.github.io/vaccinationimpact/)
+[![R-CMD-check](https://github.com/Epiconcept-Paris/vaccinationimpact/actions/workflows/formatting_and_check.yml/badge.svg)](https://github.com/Epiconcept-Paris/vaccinationimpact/actions/)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/vaccinationimpact)](https://epiconcept-paris.github.io/vaccinationimpact/)
+[![downloads
+monthly](https://cranlogs.r-pkg.org/badges/vaccinationimpact)](https://epiconcept-paris.github.io/vaccinationimpact/)
+[![downloads
+total](https://cranlogs.r-pkg.org/badges/grand-total/vaccinationimpact)](https://CRAN.R-project.org/package=vaccinationimpact)
 <!-- badges: end -->
 
 The goal of `{vaccinationimpact}` is to assess the impact of vaccination campaigns using the following estimates:
